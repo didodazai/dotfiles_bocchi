@@ -12,7 +12,12 @@
 
   programs.home-manager.enable = true;
 
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+    shellAbbrs = {
+      osaragi = "sudo nixos-rebuild switch --flake ~/nixos-config#bocchi";
+    };
+  };
   programs.alacritty.enable = true;
 
   # Noctalia sem "settings" por enquanto: configure pela GUI primeiro,
