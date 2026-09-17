@@ -47,6 +47,7 @@
 
   environment.systemPackages = with pkgs; [
     git
+    claude-code
     curl
     wget
     pciutils        # lspci

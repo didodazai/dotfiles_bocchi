@@ -14,7 +14,7 @@
     # Branch "cachix" = último commit já compilado no cache.
     # Sem "follows" de propósito, senão o cache não funciona.
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
-
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
     # Waydir entra depois, quando chegarmos nessa etapa.
   };
 

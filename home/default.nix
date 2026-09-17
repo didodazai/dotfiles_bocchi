@@ -3,6 +3,7 @@
 {
   imports = [
     inputs.noctalia.homeModules.default
+    inputs.zen-browser.homeModules.beta
   ];
 
   home.username = username;
@@ -17,6 +18,7 @@
   # Noctalia sem "settings" por enquanto: configure pela GUI primeiro,
   # depois migramos para cá o que valer a pena fixar.
   programs.noctalia.enable = true;
+  programs.zen-browser.enable = true;
 
   xdg.configFile."mango/config.conf".source = ./mango.conf;
 }
