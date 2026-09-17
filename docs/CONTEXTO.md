@@ -76,9 +76,29 @@ tag, SUPER+SHIFT+1–9 movem a janela; SUPER+SHIFT+R recarrega, SUPER+SHIFT+E
 sai; Print recorta via slurp/grim para a área de transferência; volume e brilho
 pelo Noctalia; SUPER+botão esquerdo move, direito redimensiona.
 
-Monitores: `HDMI-A-3` 2560×1440@60 em (0,0) e `eDP-1` 1920×1080@60 em
-(320,1440) — externo em cima, layout vertical. O EDID do externo por HDMI
-limita a 75 Hz; 144 Hz exigiria DisplayPort.
+Monitores — **risco conhecido**. As `monitorrule` de `home/mango.conf` casam
+pelo **nome da porta**, não pelo monitor: `HDMI-A-3` recebe 2560×1440@60 em
+(0,0) e `eDP-1` 1920×1080@60 em (320,1440). Qualquer outro monitor ligado
+naquela HDMI herda essa regra. Lendo o código do mangowc 0.12.8
+(`monitor_matches_rule`, `get_nearest_output_mode`, `createmon`): se o monitor
+novo não tiver um modo com exatamente 2560×1440, o mango cai no modo preferido
+dele — ou seja, a resolução errada sozinha não apaga a tela — mas `x`, `y`,
+`scale` e `rr` da regra continuam sendo aplicados, então o layout sai errado
+(o `eDP-1` está fixo em y:1440, número pensado para um externo de 1440 de
+altura). Só `custom:1` forçaria modo customizado, e ele não é usado aqui.
+
+Saída manual: comentar a linha do `monitorrule` em `home/mango.conf`, rodar
+`osaragi` (o `~/.config/mango/config.conf` é symlink read-only, não dá para
+editar no lugar) e recarregar com **SUPER+SHIFT+R**.
+
+Casar por fabricante/modelo **é suportado nesta versão**: `monitorrule` aceita
+`name` (regex), `make`, `model` e `serial` (comparação exata), e todos os campos
+de casamento definidos precisam bater. Os valores reais de `make`/`model` saem
+do `wlr-randr` com o monitor conectado — `wlr-randr` não está instalado aqui e
+o monitor externo não está ligado, então esses valores seguem **não
+verificados**.
+
+O EDID do externo por HDMI limita a 75 Hz; 144 Hz exigiria DisplayPort.
 
 ## 5. Como eu trabalho
 
@@ -92,16 +112,28 @@ read-only gerados pelo Home Manager — **não editar à mão**; mexer em
 `home/mango.conf` e `home/default.nix` e rebuildar. Noctalia ainda é
 configurado pela GUI, nada dele está no repo.
 
+Ferramentas:
+
+- `claude-code` está em `modules/base.nix`, vindo do nixpkgs. Versão instalada:
+  **2.1.223**.
+- O instalador oficial (`curl | bash`) não funciona aqui: ele baixa um binário
+  dinâmico genérico e no NixOS o `/lib64/ld-linux-x86-64.so.2` é apenas um stub
+  (`nix-ld` não está habilitado no config), então o binário não roda. Por isso a
+  versão do nixpkgs costuma ficar atrás da oficial.
+- `gh` **não** está no config: uso via `nix-shell -p gh`. A autenticação já foi
+  feita e o `gh auth setup-git` já rodou — o helper de credencial do git global
+  aponta para o `gh` de um nix-shell, então ele pode quebrar depois de um
+  garbage collect do store.
+
 ## 6. Estado atual
 
 Funciona: boot, sessão mango, Noctalia, módulos NVIDIA carregados junto com o
 i915, PipeWire, NetworkManager, Bluetooth. `systemctl --failed` e
 `systemctl --user --failed` retornam zero unidades.
 
-Pendente: `home/default.nix` e `home/mango.conf` com alterações não commitadas
-(a abreviação `osaragi` e os mousebinds); Noctalia sem config declarativa;
-`flatpak.nix` e `gaming.nix` não existem; o input "waydir" citado em comentário
-no `flake.nix` não foi adicionado.
+Pendente: Noctalia sem config declarativa; `flatpak.nix` e `gaming.nix` não
+existem; o input "waydir" citado em comentário no `flake.nix` não foi
+adicionado.
 
 Problemas conhecidos:
 
