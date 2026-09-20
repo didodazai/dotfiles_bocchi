@@ -4,6 +4,7 @@
   imports = [
     ../appearance.nix
     ../lockscreen.nix
+    ../qt.nix
     ../desktop/mango.nix
     ../desktop/noctalia.nix
     ../programs/packages.nix
