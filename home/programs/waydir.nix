@@ -11,6 +11,10 @@ let
       url = "https://github.com/Waydir/Waydir/releases/download/v${version}/waydir-${version}%2B30-linux.AppImage";
       hash = "sha256-BOTUrPzB9ar0gRTmkxbz4ZCxgOJ2J0BPwDTo9pkC4BQ=";
     };
+
+    extraPkgs = pkgs: [
+      pkgs.libepoxy
+    ];
   };
 
   waydirDesktop = pkgs.makeDesktopItem {
