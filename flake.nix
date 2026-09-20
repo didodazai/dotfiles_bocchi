@@ -13,6 +13,7 @@
     # Mantidos sem follows para preservar os caches binários dos projetos.
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    waydir.url = "github:Waydir/Waydir";
   };
 
   outputs = inputs@{ nixpkgs, nixos-hardware, home-manager, ... }:
