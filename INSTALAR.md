@@ -1,51 +1,66 @@
-# Passo a passo — instalação do bocchi
+# Instalação do bocchi
 
-## 1. Instalador gráfico (Calamares)
-- Idioma pt-BR, fuso America/Sao_Paulo, teclado Portuguese (Brazil) / ABNT2.
-- Desktop: **No desktop**.
-- Permitir software não-livre: sim.
-- Particionamento: **Apagar disco**, sem swap em disco, **sem criptografia**.
-  - Se oferecer "swap", escolha "sem swap" (usamos zram).
-- Usuário: `dddz` (ou o que você definir no flake.nix).
-- Hostname: `bocchi` (ou o que você definir no flake.nix).
+## 1. Instalar o NixOS
 
-## 2. Primeiro boot (tela de texto)
-Logar com seu usuário e conectar o Wi-Fi:
+No instalador:
 
-    nmtui
+- idioma: pt-BR
+- fuso: America/Sao_Paulo
+- teclado: Portuguese (Brazil) / ABNT2
+- desktop: No desktop
+- software não-livre: habilitado
+- sem criptografia
+- sem swap em disco
+- usuário: `dddz`
+- hostname: `bocchi`
 
-## 3. Trazer este repositório
-Opção A — GitHub:
+O projeto usa zram no lugar de swap em disco.
 
-    nix-shell -p git
-    git clone https://github.com/didodazai/dotfiles_bocchi ~/nixos-config
+## 2. Primeiro boot
 
-Opção B — pendrive: copie a pasta `nixos-config` para `~/nixos-config`.
+Conecte a rede, se necessário:
 
-## 4. Preparar
-    cd ~/nixos-config
-    cp /etc/nixos/hardware-configuration.nix hosts/bocchi/
-    git init   # (pule se veio do GitHub)
-    git add .
+```sh
+nmtui
+```
 
-O flake só enxerga arquivos adicionados ao Git — por isso o `git add .`.
+Clone o repositório:
 
-## 5. Primeiro rebuild
-    sudo nixos-rebuild boot --flake .#bocchi \
-      --option experimental-features "nix-command flakes"
-    reboot
+```sh
+nix-shell -p git
+git clone https://github.com/didodazai/dotfiles_bocchi ~/nixos-config
+cd ~/nixos-config
+```
 
-(Depois do primeiro rebuild, flakes já ficam ativos e o `--option` não é mais necessário.)
+Copie a configuração de hardware gerada pela instalação:
 
-## 6. Validar
-No SDDM, entre na sessão **Mango**. Se algo der errado, saia e tente **Hyprland**.
-Em último caso: no menu de boot, escolha a geração anterior.
+```sh
+cp /etc/nixos/hardware-configuration.nix hosts/bocchi/
+git add hosts/bocchi/hardware-configuration.nix
+```
 
-    nvidia-smi
-    nvidia-offload glxinfo | grep "OpenGL renderer"
-    ls -l /dev/dri/by-path
-    wpctl status
-    powerprofilesctl
+## 3. Aplicar
 
-## 7. Commit
-    git add . && git commit -m "Base funcionando"
+```sh
+sudo nixos-rebuild boot --flake .#bocchi \
+  --option experimental-features "nix-command flakes"
+reboot
+```
+
+Depois do reboot, entre na sessão **Mango** pelo SDDM.
+
+## 4. Uso normal
+
+Teste uma alteração:
+
+```fish
+osaragi-test
+```
+
+Aplique permanentemente:
+
+```fish
+osaragi
+```
+
+A configuração principal fica em `~/nixos-config`; arquivos gerados pelo Home Manager em `~/.config` não devem ser editados diretamente.
