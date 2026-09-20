@@ -2,6 +2,8 @@
 
 {
   imports = [
+    ../appearance.nix
+    ../lockscreen.nix
     ../desktop/mango.nix
     ../desktop/noctalia.nix
     ../programs/packages.nix
