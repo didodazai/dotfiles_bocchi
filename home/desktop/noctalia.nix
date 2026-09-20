@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ config, ... }:
 
 {
   programs.noctalia = {
@@ -10,14 +10,6 @@
         corner_radius_scale = 0.65;
         settings_show_advanced = true;
 
-        panel = {
-          transparency_mode = "glass";
-          borders = true;
-          shadow = true;
-          launcher_placement = "floating";
-          launcher_position = "center";
-        };
-
         animation = {
           enabled = true;
           speed = 1.0;
@@ -26,6 +18,110 @@
         shadow = {
           direction = "down";
           alpha = 0.4;
+        };
+
+        panel = {
+          transparency_mode = "glass";
+          borders = true;
+          shadow = true;
+          launcher_placement = "floating";
+          launcher_position = "center";
+        };
+      };
+
+      bar = {
+        order = [ "main" ];
+
+        main = {
+          position = "top";
+          enabled = true;
+          reserve_space = true;
+          layer = "top";
+
+          thickness = 32;
+          background_opacity = 0.21;
+          border_width = 0.0;
+          shadow = false;
+          radius = 0;
+          margin_ends = 0;
+          margin_edge = 0;
+          padding = 12;
+          widget_spacing = 12;
+          hover_highlight = true;
+          font_family = "JetBrains Mono Nerd Font";
+          font_weight = 500;
+
+          capsule = false;
+
+          start = [ "workspaces" ];
+          center = [ "media" ];
+          end = [
+            "tray"
+            "cpu"
+            "ram"
+            "network"
+            "bluetooth"
+            "battery"
+            "clock"
+            "notifications"
+            "session"
+          ];
+        };
+      };
+
+      widget = {
+        workspaces = {
+          type = "workspaces";
+          style = "regular";
+          show_labels = true;
+          label_source = "id";
+          max_label_chars = 2;
+          pill_scale = 0.85;
+          active_pill_size = 2.2;
+          inactive_pill_size = 1.0;
+          focused_color = "primary";
+          occupied_color = "secondary";
+          empty_color = "surface_variant";
+          urgent_color = "error";
+          change_color_on_hover = true;
+          focused_output_only = false;
+          hide_when_empty = false;
+        };
+
+        media = {
+          type = "media";
+          hide_artist = true;
+          hide_when_no_media = true;
+          art_size = 16;
+          min_length = 80;
+          max_length = 220;
+        };
+
+        cpu = {
+          type = "sysmon";
+          stat = "cpu_usage";
+          visualization = "none";
+          show_value = true;
+          show_glyph = true;
+        };
+
+        ram = {
+          type = "sysmon";
+          stat = "ram_pct";
+          visualization = "none";
+          show_value = true;
+          show_glyph = true;
+        };
+
+        tray = {
+          type = "tray";
+          hide_passive = true;
+          match_adjacent_spacing = true;
+        };
+
+        clock = {
+          type = "clock";
+          format = "{:%a %b %-d  %H:%M}";
         };
       };
 
