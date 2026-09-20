@@ -24,4 +24,7 @@
   # Chaveiro (o portal do Mango aponta Secret para o gnome-keyring)
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
+
+  # Autenticação do lockscreen Wayland.
+  security.pam.services.swaylock = {};
 }
