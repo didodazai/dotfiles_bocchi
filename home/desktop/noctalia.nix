@@ -30,9 +30,9 @@
       };
 
       bar = {
-        order = [ "main" ];
+        order = [ "default" ];
 
-        main = {
+        default = {
           position = "top";
           enabled = true;
           reserve_space = true;
