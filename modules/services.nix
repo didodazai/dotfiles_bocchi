@@ -25,6 +25,9 @@
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
 
+  # Necessário para temas/GTK declarativos do Home Manager.
+  programs.dconf.enable = true;
+
   # Autenticação do lockscreen Wayland.
   security.pam.services.swaylock = {};
 }
