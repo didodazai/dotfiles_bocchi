@@ -2,18 +2,14 @@
 
 {
   imports = [
-    ./hardware-configuration.nix   # copiado de /etc/nixos após instalar
+    ./hardware-configuration.nix
 
     ../../modules/base.nix
     ../../modules/nvidia.nix
     ../../modules/services.nix
     ../../modules/desktop.nix
-
-    # Etapas futuras (descomentar uma de cada vez):
-    # ../../modules/flatpak.nix
-    # ../../modules/gaming.nix
   ];
 
-  # Compatibilidade de estado. NÃO mudar em upgrades futuros.
+  # Compatibilidade da instalação original. Não alterar em upgrades.
   system.stateVersion = "26.05";
 }
