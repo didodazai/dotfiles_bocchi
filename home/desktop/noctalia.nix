@@ -17,7 +17,7 @@
 
         shadow = {
           direction = "down";
-          alpha = 0.4;
+          alpha = 0.2;
         };
 
         panel = {
@@ -39,7 +39,7 @@
           layer = "top";
 
           thickness = 32;
-          background_opacity = 0.21;
+          background_opacity = 0.0;
           border_width = 0.0;
           shadow = false;
           radius = 0;
@@ -47,7 +47,7 @@
           margin_edge = 0;
           padding = 12;
           widget_spacing = 12;
-          hover_highlight = true;
+          hover_highlight = false;
           font_family = "JetBrains Mono Nerd Font";
           font_weight = 500;
 
@@ -56,6 +56,7 @@
           start = [ "workspaces" ];
           center = [ "media" ];
           end = [
+            "privacy"
             "tray"
             "cpu"
             "ram"
@@ -63,8 +64,6 @@
             "bluetooth"
             "battery"
             "clock"
-            "notifications"
-            "session"
           ];
         };
       };
@@ -72,10 +71,11 @@
       widget = {
         workspaces = {
           type = "workspaces";
-          style = "regular";
-          show_labels = true;
+          style = "focus_hint";
+          show_labels = false;
+          show_icons = false;
           label_source = "id";
-          max_label_chars = 2;
+          max_label_chars = 1;
           pill_scale = 0.85;
           active_pill_size = 2.2;
           inactive_pill_size = 1.0;
@@ -83,7 +83,7 @@
           occupied_color = "secondary";
           empty_color = "surface_variant";
           urgent_color = "error";
-          change_color_on_hover = true;
+          change_color_on_hover = false;
           focused_output_only = false;
           hide_when_empty = false;
         };
@@ -93,8 +93,8 @@
           hide_artist = true;
           hide_when_no_media = true;
           art_size = 16;
-          min_length = 80;
-          max_length = 220;
+          min_length = 72;
+          max_length = 200;
         };
 
         cpu = {
@@ -141,16 +141,28 @@
 
       notification = {
         enable_daemon = true;
-        background_opacity = 0.9;
-        offset_x = 8;
-        offset_y = 8;
+        show_app_name = true;
+        show_actions = true;
+        position = "top_right";
+        layer = "top";
+        scale = 1.0;
+        background_opacity = 0.4;
+        border = true;
+        offset_x = 16;
+        offset_y = 40;
+        collapse_on_dismiss = true;
+        max_visible = 4;
       };
 
       osd = {
-        position = "top_right";
-        background_opacity = 0.9;
-        offset_x = 8;
-        offset_y = 8;
+        position = "bottom_center";
+        position_vertical = "bottom_center";
+        orientation = "horizontal";
+        scale = 1.0;
+        background_opacity = 0.21;
+        border = true;
+        offset_x = 0;
+        offset_y = 32;
       };
     };
 
