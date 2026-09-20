@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     home-manager = {
@@ -11,16 +10,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Branch "cachix" = último commit já compilado no cache.
-    # Sem "follows" de propósito, senão o cache não funciona.
+    # Mantidos sem follows para preservar os caches binários dos projetos.
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    # Waydir entra depois, quando chegarmos nessa etapa.
   };
 
   outputs = inputs@{ nixpkgs, nixos-hardware, home-manager, ... }:
     let
-      # >>> CONFIRA ESTES DOIS ANTES DO PRIMEIRO REBUILD <<<
       hostname = "bocchi";
       username = "dddz";
     in
@@ -28,9 +24,9 @@
       nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs hostname username; };
+
         modules = [
           ./hosts/bocchi
-
           nixos-hardware.nixosModules.dell-g3-3579
 
           home-manager.nixosModules.home-manager
