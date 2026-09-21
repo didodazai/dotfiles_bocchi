@@ -68,6 +68,16 @@ window-rule {
     clip-to-geometry true
 }
 
+// Ghostty: blur real no Niri, mantendo o fundo translúcido do tema.
+window-rule {
+    match app-id=r#"^com\\.mitchellh\\.ghostty$"#
+
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
 // A janela de configurações do Noctalia funciona melhor flutuante.
 window-rule {
     match app-id="dev.noctalia.Noctalia"
