@@ -1,17 +1,12 @@
 { pkgs, ... }:
 
 {
-  # SDDM continua em X11; as sessões do usuário são Wayland.
+  # SDDM continua em X11; a sessão do usuário é Wayland.
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
-
-  # Niri validado no hardware real; passa a ser a sessão padrão.
   services.displayManager.defaultSession = "niri";
 
-  # Mango permanece instalado apenas como fallback temporário.
-  programs.mangowc.enable = true;
-
-  # Niri fica disponível como segunda sessão no SDDM.
+  # Compositor principal e único do projeto.
   # Não instalar Nautilus só para o portal: o projeto usa Waydir.
   programs.niri = {
     enable = true;
