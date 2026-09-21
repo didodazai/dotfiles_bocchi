@@ -31,6 +31,14 @@ prefer-no-csd
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
+// Blur global usado por superfícies que pedem background blur.
+blur {
+    passes 4
+    offset 5.0
+    noise 0.02
+    saturation 1.1
+}
+
 layout {
     gaps 8
     center-focused-column "never"
@@ -70,7 +78,7 @@ window-rule {
 
 // Ghostty: blur real no Niri, mantendo o fundo translúcido do tema.
 window-rule {
-    match app-id=r#"^com\\.mitchellh\\.ghostty$"#
+    match app-id=r#"^com\.mitchellh\.ghostty$"#
 
     background-effect {
         blur true
