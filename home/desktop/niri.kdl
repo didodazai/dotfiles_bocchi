@@ -82,8 +82,8 @@ debug {
 
 binds {
     // ---------- Apps ----------
-    Mod+Return { spawn "foot"; }
-    Mod+T { spawn "foot"; }
+    Mod+Return { spawn "ghostty"; }
+    Mod+T { spawn "ghostty"; }
     Mod+B { spawn "zen-beta"; }
     Mod+E { spawn "waydir"; }
 
