@@ -5,10 +5,10 @@
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
 
-  # Durante a migração, Mango permanece como sessão padrão/fallback.
-  services.displayManager.defaultSession = "mango";
+  # Niri validado no hardware real; passa a ser a sessão padrão.
+  services.displayManager.defaultSession = "niri";
 
-  # Mantemos Mango até validar Niri no hardware real.
+  # Mango permanece instalado apenas como fallback temporário.
   programs.mangowc.enable = true;
 
   # Niri fica disponível como segunda sessão no SDDM.
