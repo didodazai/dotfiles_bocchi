@@ -7,6 +7,7 @@
     enable = true;
     interactiveShellInit = ''
       set -g fish_greeting
+      fastfetch
     '';
     shellAbbrs = {
       osaragi = "sudo nixos-rebuild switch --flake ~/nixos-config#bocchi";
