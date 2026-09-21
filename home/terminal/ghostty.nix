@@ -11,7 +11,7 @@
 
       theme = "BocchiOneDark";
 
-      background-opacity = 0.648;
+      background-opacity = 0.44;
       background-blur = 15;
 
       window-padding-x = 4;
