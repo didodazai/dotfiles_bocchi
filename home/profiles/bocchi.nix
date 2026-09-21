@@ -11,7 +11,7 @@
     ../programs/zen.nix
     ../programs/waydir.nix
     ../shell/fish.nix
-    ../terminal/foot.nix
+    ../terminal/ghostty.nix
     ../theme.nix
   ];
 }
