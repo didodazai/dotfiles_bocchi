@@ -5,7 +5,6 @@
     ../appearance.nix
     ../lockscreen.nix
     ../qt.nix
-    ../desktop/mango.nix
     ../desktop/niri.nix
     ../desktop/noctalia.nix
     ../programs/packages.nix
