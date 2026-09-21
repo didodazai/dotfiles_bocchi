@@ -7,6 +7,7 @@
     ../qt.nix
     ../desktop/niri.nix
     ../desktop/noctalia.nix
+    ../programs/fastfetch.nix
     ../programs/packages.nix
     ../programs/zen.nix
     ../programs/waydir.nix
