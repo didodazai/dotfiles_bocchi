@@ -139,6 +139,13 @@
         default.path = "${config.home.homeDirectory}/Pictures/Wallpapers/fufexan.jpg";
       };
 
+      # Backdrop usado pelo Overview do Niri, inspirado no desktop Bluefin.
+      backdrop = {
+        enabled = true;
+        blur_intensity = 0.1;
+        tint_intensity = 0.2;
+      };
+
       notification = {
         enable_daemon = true;
         background_opacity = 0.9;
