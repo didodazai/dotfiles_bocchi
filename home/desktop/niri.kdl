@@ -1,6 +1,5 @@
 // ===== Niri — bocchi =====
-// Primeira etapa da migração Mango -> Niri.
-// Sem regras fixas de monitor nesta fase: o Niri gerencia outputs dinamicamente.
+// O Niri gerencia os outputs dinamicamente para preservar hotplug seguro.
 
 input {
     keyboard {

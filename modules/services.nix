@@ -21,7 +21,7 @@
     pulse.enable = true;
   };
 
-  # Chaveiro (o portal do Mango aponta Secret para o gnome-keyring)
+  # Chaveiro para secrets e integração do desktop
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
 

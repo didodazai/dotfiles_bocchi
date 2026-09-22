@@ -47,7 +47,7 @@ sudo nixos-rebuild boot --flake .#bocchi \
 reboot
 ```
 
-Depois do reboot, entre na sessão **Mango** pelo SDDM.
+Depois do reboot, entre na sessão **Niri** pelo SDDM.
 
 ## 4. Uso normal
 
