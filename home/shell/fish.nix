@@ -19,7 +19,7 @@
     enable = true;
     enableFishIntegration = true;
     settings = {
-      format = "$username - $hostname $directory$git_branch$git_status$cmd_duration\n$character";
+      format = "$username [~](bold white) $hostname\n$character";
 
       username = {
         show_always = true;
