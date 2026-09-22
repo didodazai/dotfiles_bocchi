@@ -89,6 +89,12 @@ window-rule {
     }
 }
 
+// Noctalia v5: usa uma cópia borrada/tintada do wallpaper no backdrop do Overview.
+layer-rule {
+    match namespace="^noctalia-backdrop"
+    place-within-backdrop true
+}
+
 // A janela de configurações do Noctalia funciona melhor flutuante.
 window-rule {
     match app-id="dev.noctalia.Noctalia"
