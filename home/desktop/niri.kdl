@@ -40,6 +40,9 @@ blur {
 }
 
 layout {
+    // Mantém o wallpaper do Noctalia visível atrás do Overview.
+    background-color "#00000000"
+
     gaps 8
     center-focused-column "never"
 
