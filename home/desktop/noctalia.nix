@@ -142,7 +142,7 @@
       # Backdrop usado pelo Overview do Niri, inspirado no desktop Bluefin.
       backdrop = {
         enabled = true;
-        blur_intensity = 0.1;
+        blur_intensity = 0.07;
         tint_intensity = 0.2;
       };
 
