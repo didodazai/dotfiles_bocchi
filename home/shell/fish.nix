@@ -19,6 +19,18 @@
     enable = true;
     enableFishIntegration = true;
     settings = {
+      format = "$username - $hostname $directory$git_branch$git_status$cmd_duration\n$character";
+
+      username = {
+        show_always = true;
+        format = "[$user](bold cyan)";
+      };
+
+      hostname = {
+        ssh_only = false;
+        format = "[$hostname](bold green)";
+      };
+
       character = {
         success_symbol = "[›](bold green)";
         error_symbol = "[›](bold red)";
@@ -28,10 +40,6 @@
         modified = "✶";
         staged = "✓";
         stashed = "≡";
-      };
-      nix_shell = {
-        symbol = " ";
-        heuristic = true;
       };
     };
   };
