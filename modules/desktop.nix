@@ -17,6 +17,7 @@
     noto-fonts
     noto-fonts-color-emoji
     nerd-fonts.jetbrains-mono
+    geist-font
   ];
 
   environment.sessionVariables = {

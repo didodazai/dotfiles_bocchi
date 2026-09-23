@@ -2,6 +2,20 @@
 
 {
   home.packages = with pkgs; [
+    # Ferramentas de desenvolvimento.
+    code-cursor
+    zed-editor
+
+    # Comunicação.
+    discord
+    telegram-desktop
+
+    # Aplicativos do dia a dia.
+    spotify
+    bitwarden-desktop
+    brave
+
+    # Utilitários.
     btop
     fd
     gh
