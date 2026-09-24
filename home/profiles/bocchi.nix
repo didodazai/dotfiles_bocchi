@@ -9,6 +9,8 @@
     ../desktop/noctalia.nix
     ../programs/fastfetch.nix
     ../programs/packages.nix
+    ../programs/supernotes.nix
+    ../programs/helium.nix
     ../programs/zen.nix
     ../programs/waydir.nix
     ../shell/fish.nix
