@@ -12,6 +12,7 @@
 
     # Aplicativos do dia a dia.
     spotify
+    todoist-electron
     bitwarden-desktop
     brave
 
