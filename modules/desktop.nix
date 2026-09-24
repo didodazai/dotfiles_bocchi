@@ -13,12 +13,19 @@
     useNautilus = false;
   };
 
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-color-emoji
-    nerd-fonts.jetbrains-mono
-    geist-font
-  ];
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-color-emoji
+      nerd-fonts.jetbrains-mono
+      geist-font
+    ];
+
+    fontconfig.defaultFonts = {
+      sansSerif = [ "Geist" ];
+      monospace = [ "Geist Mono" "JetBrains Mono Nerd Font" ];
+    };
+  };
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";

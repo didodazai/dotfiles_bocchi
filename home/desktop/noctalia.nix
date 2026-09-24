@@ -6,7 +6,7 @@
 
     settings = {
       shell = {
-        font_family = "JetBrains Mono Nerd Font";
+        font_family = "Geist";
         corner_radius_scale = 0.65;
         settings_show_advanced = true;
 
@@ -48,7 +48,7 @@
           padding = 12;
           widget_spacing = 12;
           hover_highlight = true;
-          font_family = "JetBrains Mono Nerd Font";
+          font_family = "Geist";
           font_weight = 500;
 
           capsule = false;
