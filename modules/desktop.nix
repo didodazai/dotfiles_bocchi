@@ -14,8 +14,11 @@ let
       FormPosition = "center";
       VirtualKeyboardPosition = "center";
       HaveFormBackground = "false";
-      PartialBlur = "true";
-      DimBackground = "0.15";
+      PartialBlur = "false";
+      FullBlur = "true";
+      BlurMax = "32";
+      Blur = "0.35";
+      DimBackground = "0.08";
 
       HeaderText = "";
       HourFormat = "HH:mm";
