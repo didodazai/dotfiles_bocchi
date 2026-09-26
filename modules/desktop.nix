@@ -16,8 +16,8 @@ let
       HaveFormBackground = "false";
       PartialBlur = "false";
       FullBlur = "true";
-      BlurMax = "32";
-      Blur = "0.35";
+      BlurMax = "48";
+      Blur = "1.0";
       DimBackground = "0.08";
 
       HeaderText = "";
