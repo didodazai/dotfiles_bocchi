@@ -1,10 +1,84 @@
 { pkgs, ... }:
 
+let
+  sddmAstronaut = pkgs.sddm-astronaut.override {
+    embeddedTheme = "japanese_aesthetic";
+
+    themeConfig = {
+      Font = "Geist";
+      FontSize = "12";
+      RoundCorners = "16";
+
+      FormPosition = "center";
+      VirtualKeyboardPosition = "center";
+      HaveFormBackground = "false";
+      PartialBlur = "true";
+      DimBackground = "0.15";
+
+      HeaderText = "";
+      HourFormat = "HH:mm";
+      DateFormat = "dddd d MMMM";
+
+      LoginFieldBackgroundColor = "#282c34";
+      PasswordFieldBackgroundColor = "#282c34";
+      LoginFieldTextColor = "#abb2bf";
+      PasswordFieldTextColor = "#abb2bf";
+      PlaceholderTextColor = "#5c6370";
+
+      UserIconColor = "#abb2bf";
+      PasswordIconColor = "#abb2bf";
+      LoginButtonTextColor = "#1e2127";
+      LoginButtonBackgroundColor = "#e06c75";
+
+      SystemButtonsIconsColor = "#abb2bf";
+      SessionButtonTextColor = "#abb2bf";
+      VirtualKeyboardButtonTextColor = "#abb2bf";
+
+      DropdownTextColor = "#abb2bf";
+      DropdownSelectedBackgroundColor = "#353b45";
+      DropdownBackgroundColor = "#1e2127";
+
+      HighlightTextColor = "#ffffff";
+      HighlightBackgroundColor = "#353b45";
+      HighlightBorderColor = "#e06c75";
+
+      HoverUserIconColor = "#61afef";
+      HoverPasswordIconColor = "#61afef";
+      HoverSystemButtonsIconsColor = "#61afef";
+      HoverSessionButtonTextColor = "#61afef";
+      HoverVirtualKeyboardButtonTextColor = "#61afef";
+
+      WarningColor = "#e06c75";
+
+      HideVirtualKeyboard = "true";
+      HideSystemButtons = "false";
+      HideLoginButton = "false";
+      ForceLastUser = "true";
+      PasswordFocus = "true";
+      HideCompletePassword = "true";
+    };
+  };
+in
 {
   # SDDM continua em X11; a sessão do usuário é Wayland.
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
+
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "sddm-astronaut-theme";
+
+    extraPackages = with pkgs.kdePackages; [
+      qtsvg
+      qtmultimedia
+      qtvirtualkeyboard
+    ];
+  };
+
   services.displayManager.defaultSession = "niri";
+
+  environment.systemPackages = [
+    sddmAstronaut
+  ];
 
   # Compositor principal e único do projeto.
   # Não instalar Nautilus só para o portal: o projeto usa Waydir.
