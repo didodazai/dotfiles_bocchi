@@ -1,10 +1,12 @@
 { pkgs, ... }:
 
 let
-  sddmAstronaut = pkgs.sddm-astronaut.override {
+  sddmAstronaut = (pkgs.sddm-astronaut.override {
     embeddedTheme = "japanese_aesthetic";
 
     themeConfig = {
+      Background = "Backgrounds/bocchi-login.jpg";
+
       Font = "Geist";
       FontSize = "12";
       RoundCorners = "16";
@@ -57,7 +59,13 @@ let
       PasswordFocus = "true";
       HideCompletePassword = "true";
     };
-  };
+  }).overrideAttrs (oldAttrs: {
+    installPhase = oldAttrs.installPhase + ''
+      chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
+      cp ${../assets/wallpapers/sddm-login.jpg} \
+        $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/bocchi-login.jpg
+    '';
+  });
 in
 {
   # SDDM continua em X11; a sessão do usuário é Wayland.
