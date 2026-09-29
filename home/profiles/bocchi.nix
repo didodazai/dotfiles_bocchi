@@ -11,6 +11,7 @@
     ../programs/packages.nix
     ../programs/supernotes.nix
     ../programs/helium.nix
+    ../programs/grok-bot.nix
     ../programs/zen.nix
     ../programs/waydir.nix
     ../shell/fish.nix
