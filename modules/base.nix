@@ -6,6 +6,7 @@
     configurationLimit = 15;
   };
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 15;
 
   nixpkgs.config.allowUnfree = true;
 
