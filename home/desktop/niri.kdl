@@ -108,15 +108,21 @@ debug {
 
 binds {
     // ---------- Apps ----------
-    Mod+Return { spawn "ghostty"; }
-    Mod+T { spawn "ghostty"; }
+    Mod+A { spawn "todoist-electron"; }
     Mod+B { spawn "zen-beta"; }
+    Mod+D { spawn "discord"; }
     Mod+E { spawn "waydir"; }
+    Mod+G { spawn "grok-bot"; }
+    Mod+N { spawn "supernotes"; }
+    Mod+P { spawn "telegram-desktop"; }
+    Mod+S { spawn "spotify"; }
+    Mod+T { spawn "ghostty"; }
+    Mod+X { spawn "cursor"; }
+    Mod+Z { spawn "zed"; }
 
     // ---------- Noctalia ----------
+    Mod+Return { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
     Mod+Space { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
-    Mod+D { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
-    Mod+S { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
     Mod+Comma { spawn "noctalia" "msg" "settings-toggle"; }
     Mod+L { spawn "bocchi-lock"; }
 
