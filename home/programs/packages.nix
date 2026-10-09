@@ -15,6 +15,7 @@
     todoist-electron
     bitwarden-desktop
     brave
+    proton-vpn
 
     # Utilitários.
     btop
