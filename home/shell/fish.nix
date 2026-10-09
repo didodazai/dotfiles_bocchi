@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, hostname, ... }:
 
 {
   home.sessionVariables.STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
@@ -10,8 +10,8 @@
       fastfetch
     '';
     shellAbbrs = {
-      osaragi = "sudo nixos-rebuild switch --flake ~/nixos-config#bocchi";
-      osaragi-test = "sudo nixos-rebuild test --flake ~/nixos-config#bocchi";
+      osaragi = "sudo nixos-rebuild switch --flake ~/nixos-config#${hostname}";
+      osaragi-test = "sudo nixos-rebuild test --flake ~/nixos-config#${hostname}";
     };
   };
 

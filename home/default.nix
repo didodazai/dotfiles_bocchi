@@ -1,10 +1,13 @@
-{ inputs, username, ... }:
+{ inputs, username, hostname, ... }:
 
+let
+  profile = ./profiles + "/${hostname}.nix";
+in
 {
   imports = [
     inputs.noctalia.homeModules.default
     inputs.zen-browser.homeModules.beta
-    ./profiles/bocchi.nix
+    profile
   ];
 
   home.username = username;

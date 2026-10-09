@@ -1,5 +1,5 @@
 {
-  description = "NixOS — bocchi";
+  description = "NixOS — bocchi + frieren";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -17,26 +17,45 @@
 
   outputs = inputs@{ nixpkgs, nixos-hardware, home-manager, ... }:
     let
-      hostname = "bocchi";
       username = "dddz";
+
+      mkHost =
+        {
+          hostname,
+          hostModule,
+          hardwareModules ? [ ],
+          system ? "x86_64-linux",
+        }:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          specialArgs = {
+            inherit inputs hostname username;
+          };
+
+          modules =
+            [ hostModule ]
+            ++ hardwareModules
+            ++ [
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "hm-bak";
+                home-manager.extraSpecialArgs = {
+                  inherit inputs hostname username;
+                };
+                home-manager.users.${username} = import ./home;
+              }
+            ];
+        };
     in
     {
-      nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs hostname username; };
-
-        modules = [
-          ./hosts/bocchi
+      nixosConfigurations.bocchi = mkHost {
+        hostname = "bocchi";
+        hostModule = ./hosts/bocchi;
+        hardwareModules = [
           nixos-hardware.nixosModules.dell-g3-3579
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "hm-bak";
-            home-manager.extraSpecialArgs = { inherit inputs username; };
-            home-manager.users.${username} = import ./home;
-          }
         ];
       };
     };

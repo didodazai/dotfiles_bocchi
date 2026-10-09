@@ -2,20 +2,7 @@
 
 {
   imports = [
-    ../appearance.nix
-    ../lockscreen.nix
-    ../qt.nix
-    ../desktop/niri.nix
-    ../desktop/noctalia.nix
+    ./common.nix
     ../programs/fastfetch.nix
-    ../programs/packages.nix
-    ../programs/supernotes.nix
-    ../programs/helium.nix
-    ../programs/grok-bot.nix
-    ../programs/zen.nix
-    ../programs/waydir.nix
-    ../shell/fish.nix
-    ../terminal/ghostty.nix
-    ../theme.nix
   ];
 }
