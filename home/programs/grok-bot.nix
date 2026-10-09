@@ -1,17 +1,11 @@
 { pkgs, ... }:
 
 let
-  version = "0.62.0";
+  version = "0.68.1";
 
-  src = pkgs.requireFile {
-    name = "Grok_Bot_${version}.AppImage";
-    hash = "sha256-/5xfAnXt6N698rJmzogMe+uH0HUiLY/526RYoI4np80=";
-    url = "https://grok.com/";
-    message = ''
-      Download Grok Bot ${version} for Linux as an AppImage and add it to the Nix store with:
-
-        nix-prefetch-url file://$HOME/Downloads/Grok_Bot_${version}.AppImage
-    '';
+  src = pkgs.fetchurl {
+    url = "https://downloads.cursor.com/grokbot/stable/33103062f95061ccf9c81c5b365d37ab152c3b66/linux/x64/Grok_Bot_${version}.AppImage";
+    hash = "sha256-L+fFrOzM1VehM7DGGSmX7AwTIPHp/Hvv/MprXozvuls=";
   };
 
   appimageContents = pkgs.appimageTools.extractType2 {
