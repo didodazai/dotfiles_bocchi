@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -17,6 +17,10 @@
   fileSystems."/".options = [ "compress=zstd" "noatime" ];
   fileSystems."/home".options = [ "compress=zstd" "noatime" ];
   fileSystems."/nix".options = [ "compress=zstd" "noatime" ];
+
+  # O ESP FAT32 precisa negar leitura a usuários comuns, inclusive do random-seed
+  # usado pelo systemd-boot. Sobrescreve a máscara permissiva gerada no hardware config.
+  fileSystems."/boot".options = lib.mkForce [ "umask=0077" ];
 
   # Linux 7.2 não compila com o NVIDIA open 595.71.05 da revisão fixada.
   # Usar o LTS 6.18 para a instalação inicial; reavaliar kernels mais novos depois.
