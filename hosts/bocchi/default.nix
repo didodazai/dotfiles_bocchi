@@ -9,6 +9,7 @@
     ../../modules/services.nix
     ../../modules/desktop.nix
     ../../modules/dev.nix
+    ../../modules/mysql.nix
   ];
 
   # Compatibilidade da instalação original. Não alterar em upgrades.
