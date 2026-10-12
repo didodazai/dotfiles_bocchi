@@ -13,6 +13,7 @@ in
     # Ferramentas de desenvolvimento.
     code-cursor
     appsPkgs.zed-editor
+    appsPkgs.codex
 
     # Comunicacao.
     discord
