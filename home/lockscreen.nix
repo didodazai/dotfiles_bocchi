@@ -1,15 +1,15 @@
 { pkgs, lib, hostname, ... }:
 
 let
-  # A tela do frieren usa arte propria; bocchi mantém a captura dinamica.
+  # Captura de tela desfocada em ambos os hosts.
+  # No frieren, o desfoque e mais forte; o bocchi permanece como estava.
   # A mesma senha, PAM e o atalho Super+L permanecem inalterados.
   backgroundArgs =
     if hostname == "frieren" then
       [
-        "--image" "${../assets/wallpapers/frieren-lockscreen.jpeg}"
-        "--scaling" "fill"
-        "--effect-blur" "2x2"
-        "--effect-vignette" "0.12:0.20"
+        "--screenshots"
+        "--effect-blur" "12x8"
+        "--effect-vignette" "0.2:0.5"
       ]
     else
       [
