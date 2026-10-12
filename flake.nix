@@ -58,5 +58,10 @@
           nixos-hardware.nixosModules.dell-g3-3579
         ];
       };
+
+      nixosConfigurations.frieren = mkHost {
+        hostname = "frieren";
+        hostModule = ./hosts/frieren;
+      };
     };
 }
