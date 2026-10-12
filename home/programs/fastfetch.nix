@@ -21,9 +21,9 @@ in
           }
         else if isFrieren then
           {
-            source = "~/.config/fastfetch/pngs/frieren.jpeg";
+            source = "~/.config/fastfetch/pngs/frieren.png";
             type = "chafa";
-            height = 12;
+            height = 13;
             padding.top = 1;
           }
         else
@@ -44,6 +44,6 @@ in
       "fastfetch/pngs/bocchi.png".source = ./fastfetch/bocchi.png;
     })
     // (lib.optionalAttrs isFrieren {
-      "fastfetch/pngs/frieren.jpeg".source = ./fastfetch/frieren.jpeg;
+      "fastfetch/pngs/frieren.png".source = ./fastfetch/frieren.png;
     });
 }
