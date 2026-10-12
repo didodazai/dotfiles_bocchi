@@ -9,7 +9,7 @@
       font-family = "JetBrains Mono Nerd Font";
       font-size = 10;
 
-      theme = "BocchiOneDark";
+      theme = "OsaragiOneDark";
 
       background-opacity = 0.66;
       background-blur = 1;
@@ -22,7 +22,7 @@
       cursor-style-blink = false;
     };
 
-    themes.BocchiOneDark = {
+    themes.OsaragiOneDark = {
       palette = [
         "0=#1e2127"
         "1=#e06c75"
