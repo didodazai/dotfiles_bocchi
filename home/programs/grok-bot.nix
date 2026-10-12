@@ -41,6 +41,9 @@ let
     exec = "grok-bot %U";
     icon = "grok-bot";
     categories = [ "Network" "Utility" ];
+    # Protocolos anunciados no desktop original da AppImage oficial.
+    # Nao definimos um handler padrao do sistema.
+    mimeTypes = [ "x-scheme-handler/grokbot" "x-scheme-handler/sand" ];
     startupNotify = true;
   };
 in
