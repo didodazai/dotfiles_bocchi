@@ -1,67 +1,52 @@
-# Instalação do frieren
+# frieren — registro de instalacao e operacao
 
-Este arquivo registra o plano da instalação do desktop. Não executar etapas destrutivas
-sem antes confirmar o disco correto no Live USB.
+> **Estado em outubro de 2026:** instalacao realizada e host `frieren` ativo no flake. Este documento nao e um roteiro de comandos a executar novamente. Nao reparticionar ou formatar o disco de um sistema ja instalado.
 
-## Estado planejado
+## Estado declarado no repositorio
 
-- hostname: `frieren`
-- usuário: `dddz`
-- NixOS 26.05
-- Niri + Noctalia
-- SDDM
-- Fish + Ghostty
-- Ryzen 5 5600
-- RTX 3060 dedicada
-- NVIDIA open kernel module
-- kernel `linuxPackages_latest` inicialmente
-- Steam + Proton-GE + Protontricks + GameMode + Heroic
-- zram + swap física
+- Host e usuario: `frieren`, `dddz`.
+- NixOS 26.05 com Niri + Noctalia, SDDM, Ghostty e Fish.
+- CPU Ryzen 5 5600; GPU dedicada RTX 3060.
+- Modulos NVIDIA **abertos**; `hardware.graphics.enable32Bit = true`.
+- Kernel `linuxPackages_6_18` (6.18 LTS). A escolha substituiu a proposta inicial de `linuxPackages_latest` por compatibilidade com o driver NVIDIA fixado.
+- Steam, Proton-GE, Protontricks, GameMode e Heroic no `modules/gaming.nix`.
+- Monitores Samsung e AOC declarados em `home/desktop/frieren-outputs.kdl`.
+- Power governor `performance` e power-profiles-daemon desabilitado especificamente neste host.
 
-## Disco
+## Disco e montagem (registro, nao instrucoes)
 
-O NVMe de 1 TB será usado inteiro pelo Linux.
+O NVMe foi preparado para uso exclusivo do NixOS, com ESP FAT32, swap fisica e particao Btrfs. O hardware gerado confirma os subvolumes `@` (raiz), `@home` e `@nix`. As opcoes `compress=zstd` e `noatime` sao declaradas no modulo do host.
 
-Layout planejado:
+O arquivo `hosts/frieren/hardware-configuration.nix` contem UUIDs reais: **nao altera-lo nem copia-lo entre maquinas**. O host aplica `fmask=0077` e `dmask=0077` em `/boot` para proteger os dados da ESP. A swap fisica existe; a hibernacao nao foi habilitada.
 
-```text
-GPT
-├── EFI    2 GiB    FAT32
-├── SWAP  40 GiB    Linux swap
-└── NixOS restante  Btrfs
+## Uso e testes de futuras mudancas (Fish)
+
+```fish
+cd ~/nixos-config
+git status --short
+git branch --show-current
+git pull --ff-only
+osaragi-test
 ```
 
-A swap física fica pronta para uma possível hibernação futura. A hibernação não será
-habilitada na instalação inicial.
+Depois de verificar funcionamento de sessao, monitores, rede e aplicativos:
 
-Antes de particionar, confirmar o NVMe com:
-
-```sh
-lsblk -o NAME,SIZE,TYPE,FSTYPE,MODEL,MOUNTPOINTS
+```fish
+osaragi
 ```
 
-Não assumir o nome do dispositivo sem conferir a saída.
+Para diagnosticos nao destrutivos:
 
-## O que já pode existir no repositório
+```fish
+systemctl --failed
+systemctl --user --failed
+niri msg outputs
+```
 
-O perfil `hosts/frieren/default.nix` pode ser preparado antes da instalação, mas
-`hosts/frieren/hardware-configuration.nix` deve ser gerado no próprio desktop.
+Alteracoes em NVIDIA, kernel, EFI, monitores ou compositor exigem um teste especifico e cuidado extra. Nao executar novamente as etapas de particionamento/instalacao no host pronto.
 
-Não copiar o `hardware-configuration.nix` do bocchi.
+## Diferencas ainda relevantes
 
-## No Live USB
+Supernotes nao e importado no perfil deste desktop (download oficial bloqueia obtencao automatizada). O atalho `Mod+N` ainda existe no KDL compartilhado, mas so abre o aplicativo onde ele estiver instalado. Antes de mudar atalhos compartilhados, conferir impacto nos dois hosts.
 
-Quando estivermos no desktop:
-
-1. confirmar `nixos-version`;
-2. confirmar UEFI e o NVMe correto;
-3. particionar e formatar o disco;
-4. montar Btrfs/EFI e ativar a swap;
-5. gerar a configuração de hardware do próprio frieren;
-6. colocar `hardware-configuration.nix` em `hosts/frieren/`;
-7. adicionar `nixosConfigurations.frieren` ao `flake.nix`;
-8. validar a avaliação do flake;
-9. instalar o NixOS pelo perfil `#frieren`;
-10. reiniciar e validar NVIDIA, Niri, Noctalia, os dois monitores, rede, áudio e Bluetooth.
-
-Depois da primeira inicialização estável, validar Steam/Proton/Heroic e jogos.
+Consulte `README.md` e `AGENTS.md` para as regras do projeto.

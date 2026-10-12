@@ -1,85 +1,84 @@
-# bocchi
+# NixOS — bocchi + frieren
 
-Configuração declarativa do NixOS para o Dell G3 3579, mantida com Flakes + Home Manager.
+Configuracao declarativa multi-host com **NixOS Flakes + Home Manager**, mantida na branch de trabalho `osaragi`.
 
-## Setup atual
+## Hosts
 
-- **NixOS 26.05**
-- **Niri** como compositor Wayland
-- **Noctalia** para bar, launcher, wallpaper, notificações, OSD e backdrop do Overview
-- **SDDM** como display manager
-- **Ghostty** como terminal
-- **Fish + Starship + Zoxide**
-- **Fastfetch + Chafa**
-- **Waydir** como gerenciador de arquivos
-- **Zen Browser**
-- **swaylock-effects** para lockscreen
-- **GTK:** adw-gtk3-dark, Inter e Adwaita
-- **Qt:** qt6ct + Kvantum/KvLibadwaita
-- **PipeWire**
-- **NetworkManager**
-- **BlueZ**
-- **power-profiles-daemon**
-- **zram** no lugar de swap em disco
+| Host | Maquina | Diferencas principais |
+| --- | --- | --- |
+| `bocchi` | Dell G3 3579; i7-8750H; UHD 630 + GTX 1050 Ti; 16 GB RAM | NVIDIA Pascal com PRIME offload, tela interna Intel e HDMI na NVIDIA; Supernotes |
+| `frieren` | Desktop Ryzen 5 5600 + RTX 3060 | NVIDIA open, kernel Linux 6.18, dois monitores com layout proprio, Steam/Proton/GameMode/Heroic, swap em disco |
 
-## Hardware
+Ambos usam NixOS **26.05**, Niri + Noctalia, SDDM, Ghostty, Fish, Starship, Waydir e Zen Browser Beta. O launcher e o painel sao os do Noctalia, nao do Vicinae.
 
-- Dell G3 3579
-- Intel Core i7-8750H
-- Intel UHD 630
-- NVIDIA GeForce GTX 1050 Ti Mobile
-- 16 GB de RAM
-- NVMe de 1 TB
+O `flake.nix` declara `nixosConfigurations.bocchi` e `nixosConfigurations.frieren`. A base do sistema fica no `nixos-26.05`; aplicativos selecionados usam um input independente do nixpkgs unstable, e ferramentas de IA usam um flake fixado da Numtide. Atualizar o lockfile de um input nao exige atualizar os outros.
 
-O laptop usa o perfil `nixos-hardware` do Dell G3 3579, com PRIME offload para a NVIDIA. A tela interna usa a Intel e o HDMI é ligado fisicamente à NVIDIA.
+## Ferramentas e aplicativos
 
-## Estrutura
+- Navegadores: Zen Browser Beta (padrao), Brave e Helium.
+- Desenvolvimento: Cursor, Zed, Claude Code, PHP 8.4, Composer e MySQL local em `127.0.0.1`.
+- IA no terminal: `codex`, `agent` (Cursor Agent), `agy` (Google Antigravity CLI).
+- Aplicativo grafico do Codex/ChatGPT: comando `chatgpt`. No `bocchi`, ele usa flags especificas de renderizacao por software para evitar problemas com Intel/i915.
+- Outros programas compartilhados: Discord, Telegram, Spotify, Todoist, Bitwarden, Proton VPN e Grok Bot.
+- Supernotes: incluido apenas no perfil `bocchi`, pois a instalacao no `frieren` foi adiada devido ao download protegido do AppImage.
+- Jogos: o modulo `gaming.nix` e importado somente no `frieren`.
+
+Versoes concretas e URLs de downloads ficam nos arquivos Nix e no `flake.lock`, nao neste README.
+
+## Organizacao
 
 ```text
-flake.nix
-hosts/bocchi/
-modules/
-home/
-  profiles/
-  desktop/
-  shell/
-  terminal/
-  programs/
+flake.nix                 # definicao dos hosts e inputs
+flake.lock                # revisoes fixadas
+hosts/bocchi/             # imports e hardware gerado do laptop
+hosts/frieren/            # imports e hardware gerado do desktop
+modules/                  # base, desktop, dev, services, NVIDIA por host, gaming
+home/profiles/            # common + diferencas por host
+home/desktop/             # Niri/Noctalia e layout dos monitores do frieren
+home/programs/            # aplicativos Nix e empacotamentos proprios
+home/shell/               # Fish e comandos osaragi
+home/terminal/            # Ghostty
 ```
 
-Os principais arquivos do desktop são:
+O Niri tem um arquivo KDL comum; os outputs do `frieren` sao anexados e validados durante o build. No `bocchi`, preservar a deteccao dinamica e o hotplug HDMI.
 
-- `home/desktop/niri.kdl` — layout, binds, regras e Overview do Niri
-- `home/desktop/noctalia.nix` — Noctalia, bar, wallpaper e backdrop
-- `home/terminal/ghostty.nix` — Ghostty
-- `home/shell/fish.nix` — Fish, Starship e Zoxide
-- `home/programs/fastfetch.nix` — Fastfetch
-- `modules/nvidia.nix` — complementos do setup híbrido Intel/NVIDIA
+## Rebuild normal (Fish)
 
-## Rebuild
-
-Testar uma geração sem torná-la padrão no boot:
+Em **cada host**, no clone em `~/nixos-config`:
 
 ```fish
+cd ~/nixos-config
+git status --short
+git branch --show-current
+git pull --ff-only
 osaragi-test
 ```
 
-Aplicar permanentemente:
+Se o teste passou e os aplicativos/monitores esperados estao funcionando:
 
 ```fish
 osaragi
 ```
 
-Equivalentes completos:
+Os comandos Fish detectam o hostname automaticamente e usam `#bocchi` ou `#frieren`. Nao trocar o nome do host nos comandos.
+
+Verificacoes basicas depois de alteracoes relevantes:
 
 ```fish
-sudo nixos-rebuild test --flake ~/nixos-config#bocchi
-sudo nixos-rebuild switch --flake ~/nixos-config#bocchi
+systemctl --failed
+systemctl --user --failed
+niri msg outputs
 ```
 
-## Regras do projeto
+Nao interpretar a ausencia de erros no build como confirmacao de que aplicativos graficos, sessao ou monitores funcionam: testar na propria maquina.
 
-- Não editar `hosts/bocchi/hardware-configuration.nix` manualmente.
-- Não alterar `system.stateVersion` nem `home.stateVersion`.
-- Manter `hardware.nvidia.powerManagement.finegrained = false`: a GTX 1050 Ti é Pascal.
-- Arquivos gerados pelo Home Manager em `~/.config` não são a fonte de verdade; as alterações devem ser feitas neste repositório.
+## Regras de seguranca
+
+- **Nunca modificar** `hosts/*/hardware-configuration.nix`, `system.stateVersion` nem `home.stateVersion`.
+- No `bocchi`, manter `hardware.nvidia.powerManagement.finegrained = false` (GPU Pascal) e nao arriscar configuracoes de HDMI/PRIME que possam eliminar a imagem.
+- Nao substituir Niri/Noctalia por outros compositores, nem substituir o launcher do Noctalia.
+- Preferir modulos NixOS, Home Manager e nixpkgs; evitar alteracoes manuais fora do Nix.
+- Fazer alteracoes pequenas, especificas por host quando necessario, e validar com `osaragi-test` antes de `osaragi`.
+- O estado real de cada host e validado com testes locais; commits no GitHub, por si so, nao confirmam funcionamento.
+
+Veja tambem `AGENTS.md`, `INSTALAR.md` e `INSTALAR-FRIEREN.md`.
