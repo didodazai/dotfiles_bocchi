@@ -47,6 +47,6 @@ Alteracoes em NVIDIA, kernel, EFI, monitores ou compositor exigem um teste espec
 
 ## Diferencas ainda relevantes
 
-Supernotes nao e importado no perfil deste desktop (download oficial bloqueia obtencao automatizada). O atalho `Mod+N` ainda existe no KDL compartilhado, mas so abre o aplicativo onde ele estiver instalado. Antes de mudar atalhos compartilhados, conferir impacto nos dois hosts.
+Supernotes 3.2.4 foi habilitado declarativamente em `home/profiles/frieren.nix`, usando o modulo ja compartilhado com `bocchi`. O AppImage oficial foi adicionado ao Nix store do desktop e o usuario confirmou funcionamento. O atalho `Mod+N` no Niri esta disponivel em ambos os hosts. Para futuras atualizacoes do Supernotes, verificar versao e hash antes de alterar o modulo.
 
 Consulte `README.md` e `AGENTS.md` para as regras do projeto.

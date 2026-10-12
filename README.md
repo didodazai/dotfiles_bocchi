@@ -6,7 +6,7 @@ Configuracao declarativa multi-host com **NixOS Flakes + Home Manager**, mantida
 
 | Host | Maquina | Diferencas principais |
 | --- | --- | --- |
-| `bocchi` | Dell G3 3579; i7-8750H; UHD 630 + GTX 1050 Ti; 16 GB RAM | NVIDIA Pascal com PRIME offload, tela interna Intel e HDMI na NVIDIA; Supernotes |
+| `bocchi` | Dell G3 3579; i7-8750H; UHD 630 + GTX 1050 Ti; 16 GB RAM | NVIDIA Pascal com PRIME offload, tela interna Intel e HDMI na NVIDIA |
 | `frieren` | Desktop Ryzen 5 5600 + RTX 3060 | NVIDIA open, kernel Linux 6.18, dois monitores com layout proprio, Steam/Proton/GameMode/Heroic, swap em disco |
 
 Ambos usam NixOS **26.05**, Niri + Noctalia, SDDM, Ghostty, Fish, Starship, Waydir e Zen Browser Beta. O launcher e o painel sao os do Noctalia, nao do Vicinae.
@@ -20,7 +20,7 @@ O `flake.nix` declara `nixosConfigurations.bocchi` e `nixosConfigurations.friere
 - IA no terminal: `codex`, `agent` (Cursor Agent), `agy` (Google Antigravity CLI).
 - Aplicativo grafico do Codex/ChatGPT: comando `chatgpt`. No `bocchi`, ele usa flags especificas de renderizacao por software para evitar problemas com Intel/i915.
 - Outros programas compartilhados: Discord, Telegram, Spotify, Todoist, Bitwarden, Proton VPN e Grok Bot.
-- Supernotes: incluido apenas no perfil `bocchi`, pois a instalacao no `frieren` foi adiada devido ao download protegido do AppImage.
+- Supernotes 3.2.4: incluido em ambos os perfis. Como o fornecedor bloqueia downloads automatizados, seu AppImage oficial deve estar disponivel no Nix store de cada maquina com o hash declarado em `home/programs/supernotes.nix`.
 - Jogos: o modulo `gaming.nix` e importado somente no `frieren`.
 
 Versoes concretas e URLs de downloads ficam nos arquivos Nix e no `flake.lock`, nao neste README.
