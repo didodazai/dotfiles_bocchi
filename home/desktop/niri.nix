@@ -11,12 +11,32 @@ let
     ${pkgs.niri}/bin/niri validate -c config.kdl
     cp config.kdl $out
   '';
+
+  # O nixpkgs fixado no flake traz xwayland-satellite 0.8.2, que fecha
+  # imediatamente os menus da Steam. O upstream corrigiu isso na 0.8.3.
+  # Atualizacao pontual somente no Frieren, sem atualizar o nixpkgs todo.
+  xwaylandSatellite =
+    if hostname == "frieren" then
+      pkgs.xwayland-satellite.overrideAttrs (finalAttrs: previousAttrs: {
+        version = "0.8.3";
+
+        src = pkgs.fetchFromGitHub {
+          owner = "Supreeeme";
+          repo = "xwayland-satellite";
+          tag = "v0.8.3";
+          hash = "sha256-eFEjCCniMCKeWU0PcZNv+tDYe08SLFPjRplyPY8OFt4=";
+        };
+
+        cargoHash = "sha256-gMGFvnbxM3hD5fmkSimaFd87GEf6BXFe/MGjoS6VNVU=";
+      })
+    else
+      pkgs.xwayland-satellite;
 in
 {
   xdg.configFile."niri/config.kdl".source = validatedConfig;
 
-  # Niri usa o satellite para clientes X11 legados.
+  # Niri utiliza o Xwayland satellite para aplicativos X11 legados.
   home.packages = [
-    pkgs.xwayland-satellite
+    xwaylandSatellite
   ];
 }
