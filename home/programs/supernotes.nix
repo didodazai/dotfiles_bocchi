@@ -15,9 +15,20 @@ let
     '';
   };
 
+  # Icone original, extraido da mesma AppImage fixada pelo requireFile.
+  appimageContents = pkgs.appimageTools.extract {
+    pname = "supernotes";
+    inherit version src;
+  };
+
   supernotes = pkgs.appimageTools.wrapType2 {
     pname = "supernotes";
     inherit version src;
+
+    extraInstallCommands = ''
+      install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/supernotes.png \
+        $out/share/icons/hicolor/512x512/apps/supernotes.png
+    '';
   };
 
   desktopItem = pkgs.makeDesktopItem {
@@ -26,7 +37,7 @@ let
     genericName = "Notes";
     comment = "Fast, collaborative note-taking";
     exec = "supernotes %U";
-    icon = "accessories-text-editor";
+    icon = "supernotes";
     categories = [ "Office" ];
     mimeTypes = [ "x-scheme-handler/supernotes" ];
     startupNotify = true;
