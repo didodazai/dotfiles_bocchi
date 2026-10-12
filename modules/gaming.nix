@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   programs.steam = {
@@ -13,6 +13,10 @@
   };
 
   programs.gamemode.enable = true;
+
+  # O grupo gamemode permite ao daemon solicitar mudancas no governor da CPU.
+  # Este modulo e importado somente pelo frieren.
+  users.users.${username}.extraGroups = [ "gamemode" ];
 
   environment.systemPackages = with pkgs; [
     heroic
