@@ -17,6 +17,10 @@
     # Mantidos sem follows para preservar os caches binários dos projetos.
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
+    # Agentes de IA e aplicativo Codex, isolados da base NixOS 26.05.
+    # Mantem o nixpkgs proprio para usar os pacotes testados pela Numtide.
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs = inputs@{ nixpkgs, nixos-hardware, home-manager, ... }:
