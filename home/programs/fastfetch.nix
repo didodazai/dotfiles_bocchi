@@ -4,6 +4,7 @@ let
   # Layout compartilhado. O logo e escolhido por host sem duplicar os modulos.
   commonSettings = builtins.fromJSON (builtins.readFile ./fastfetch/config.jsonc);
   isBocchi = hostname == "bocchi";
+  isFrieren = hostname == "frieren";
 in
 {
   programs.fastfetch = {
@@ -18,10 +19,15 @@ in
             height = 10;
             padding.top = 1;
           }
+        else if isFrieren then
+          {
+            source = "~/.config/fastfetch/pngs/frieren.jpeg";
+            type = "chafa";
+            height = 10;
+            padding.top = 1;
+          }
         else
           {
-            # Frieren: logo de texto nativo, sem depender de um arquivo externo.
-            # Substituir por imagem propria apenas depois de escolher a arte.
             source = "nixos";
             type = "builtin";
             padding.top = 1;
@@ -29,11 +35,15 @@ in
     };
   };
 
-  # Apenas a imagem do bocchi usa Chafa; o logo do frieren e builtin.
-  home.packages = lib.optionals isBocchi [ pkgs.chafa ];
+  # Ambos os hosts usam Chafa para mostrar a imagem no Fastfetch.
+  home.packages = lib.optionals (isBocchi || isFrieren) [ pkgs.chafa ];
 
-  # A imagem Bocchi continua no laptop; nao precisa ser copiada para Frieren.
-  xdg.configFile = lib.optionalAttrs isBocchi {
-    "fastfetch/pngs/bocchi.png".source = ./fastfetch/bocchi.png;
-  };
+  # Imagens declarativas separadas por host.
+  xdg.configFile =
+    (lib.optionalAttrs isBocchi {
+      "fastfetch/pngs/bocchi.png".source = ./fastfetch/bocchi.png;
+    })
+    // (lib.optionalAttrs isFrieren {
+      "fastfetch/pngs/frieren.jpeg".source = ./fastfetch/frieren.jpeg;
+    });
 }
