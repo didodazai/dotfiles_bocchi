@@ -1,11 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, hostname, ... }:
 
 let
-  # Faz o build falhar se o KDL não for válido para a versão do Niri do NixOS.
-  validatedConfig = pkgs.runCommand "bocchi-niri-config.kdl" {
+  # Valida o KDL compartilhado e acrescenta apenas os outputs do Frieren.
+  validatedConfig = pkgs.runCommand "${hostname}-niri-config.kdl" {
     nativeBuildInputs = [ pkgs.niri ];
   } ''
     cp ${./niri.kdl} config.kdl
+    ${if hostname == "frieren" then "cat ${./frieren-outputs.kdl} >> config.kdl" else ""}
     ${pkgs.niri}/bin/niri validate -c config.kdl
     cp config.kdl $out
   '';
