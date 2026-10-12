@@ -1,16 +1,31 @@
-{ pkgs, ... }:
+{ pkgs, lib, hostname, ... }:
 
 let
+  # A tela do frieren usa arte propria; bocchi mantém a captura dinamica.
+  # A mesma senha, PAM e o atalho Super+L permanecem inalterados.
+  backgroundArgs =
+    if hostname == "frieren" then
+      [
+        "--image" "${../assets/wallpapers/frieren-lockscreen.jpeg}"
+        "--scaling" "fill"
+        "--effect-blur" "2x2"
+        "--effect-vignette" "0.12:0.20"
+      ]
+    else
+      [
+        "--screenshots"
+        "--effect-blur" "7x5"
+        "--effect-vignette" "0.2:0.5"
+      ];
+
   bocchi-lock = pkgs.writeShellScriptBin "bocchi-lock" ''
     exec ${pkgs.swaylock-effects}/bin/swaylock \
       --daemonize \
-      --screenshots \
+      ${lib.escapeShellArgs backgroundArgs} \
       --clock \
       --indicator \
       --indicator-radius 75 \
       --indicator-thickness 5 \
-      --effect-blur 7x5 \
-      --effect-vignette 0.2:0.5 \
       --timestr "%H:%M" \
       --datestr "%a %b %d" \
       --font "Inter" \
