@@ -23,7 +23,7 @@ in
           {
             source = "~/.config/fastfetch/pngs/frieren.jpeg";
             type = "chafa";
-            height = 10;
+            height = 12;
             padding.top = 1;
           }
         else
