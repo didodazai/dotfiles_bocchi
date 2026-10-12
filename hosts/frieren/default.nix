@@ -22,6 +22,12 @@
   # usado pelo systemd-boot. Sobrescreve a máscara permissiva gerada no hardware config.
   fileSystems."/boot".options = lib.mkForce [ "fmask=0077" "dmask=0077" ];
 
+  # Desktop conectado à tomada: usar o governor de desempenho no boot.
+  # Evita que power-profiles-daemon altere o governor depois do cpufreq.
+  # O bocchi mantém seus perfis de energia de laptop.
+  services.power-profiles-daemon.enable = lib.mkForce false;
+  powerManagement.cpuFreqGovernor = "performance";
+
   # Linux 7.2 não compila com o NVIDIA open 595.71.05 da revisão fixada.
   # Usar o LTS 6.18 para a instalação inicial; reavaliar kernels mais novos depois.
   boot.kernelPackages = pkgs.linuxPackages_6_18;
