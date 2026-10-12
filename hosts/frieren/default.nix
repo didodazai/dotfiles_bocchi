@@ -18,9 +18,9 @@
   fileSystems."/home".options = [ "compress=zstd" "noatime" ];
   fileSystems."/nix".options = [ "compress=zstd" "noatime" ];
 
-  # O desktop começa no kernel mais recente disponível no nixpkgs fixado.
-  # Se houver regressão com NVIDIA/Niri, o fallback será o LTS.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Linux 7.2 não compila com o NVIDIA open 595.71.05 da revisão fixada.
+  # Usar o LTS 6.18 para a instalação inicial; reavaliar kernels mais novos depois.
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
 
   # Versão inicial deste host. Não alterar em upgrades futuros.
   system.stateVersion = "26.05";
