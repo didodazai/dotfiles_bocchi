@@ -13,7 +13,7 @@ O preset `Bluefin-Microfone` e gerado via `services.easyeffects.extraPresets` e 
 
 O banco antigo registrava `plugins=rnnoise#0,deepfilternet#0` e nao continha preset nomeado, nem parametros customizados de RNNoise. Os demais parametros usam os defaults do EasyEffects atual (8.2.4 na instalacao inicial).
 
-**Limite da recuperacao:** os arquivos de referencia nao confirmam o estado de bypass dos filtros. Para ter supressao de ruido, ambos sao ativados no preset. A versao anterior era EasyEffects 8.3.0; por isso verificar auditivamente no 8.2.4 antes de considerar a migracao concluida.
+**Limite da recuperacao:** os arquivos de referencia nao confirmam o estado de bypass dos filtros. Nos testes do NixOS 8.2.4, o DeepFilterNet produziu chiado/estouros no Discord e o usuario relatou melhora ao desliga-lo. Por isso, o preset mantem **RNNoise ativo e DeepFilterNet em bypass** com os parametros originais guardados para futura comparacao. A versao do Bluefin era 8.3.0; a causa exata do artefato ainda nao foi determinada.
 
 ## Dispositivo de entrada
 
@@ -34,7 +34,7 @@ easyeffects --presets
 wpctl status
 ```
 
-Abrir `easyeffects`, confirmar que `Bluefin-Microfone` esta carregado na aba Input com RNNoise seguido de DeepFilterNet, e que o microfone USB correto alimenta essa cadeia. Fazer um teste de voz no Discord, com o medidor da entrada virtual reagindo a fala.
+Abrir `easyeffects`, confirmar que `Bluefin-Microfone` esta carregado na aba Input com **RNNoise ativado e DeepFilterNet desligado (bypass)**, e que o microfone USB correto alimenta essa cadeia. Fazer um teste de voz no Discord, com o medidor da entrada virtual reagindo a fala.
 
 Apos validação, usar `osaragi` para fixar a geracao. Se houver erro ou voz distorcida, nao alterar a fonte global do PipeWire: revisar os dois filtros e relatar a saida de `journalctl --user -u easyeffects.service -n 60 --no-pager`.
 

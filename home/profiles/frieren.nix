@@ -25,8 +25,10 @@
         "use-standard-model" = true;
       };
 
+      # Desativado apos testes de chiado/estouros no Discord.
+      # Mantemos o efeito e os parametros recuperados para comparacao futura.
       "deepfilternet#0" = {
-        bypass = false;
+        bypass = true;
         "attenuation-limit" = 91.0;
         "post-filter-beta" = 0.019999999552965164;
       };
