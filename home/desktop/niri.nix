@@ -27,7 +27,13 @@ let
           hash = "sha256-eFEjCCniMCKeWU0PcZNv+tDYe08SLFPjRplyPY8OFt4=";
         };
 
-        cargoHash = "sha256-gMGFvnbxM3hD5fmkSimaFd87GEf6BXFe/MGjoS6VNVU=";
+        # overrideAttrs nao recalcula o cargoDeps original do buildRustPackage.
+        # Substituir tambem o vendoring para usar o Cargo.lock da versao 0.8.3.
+        cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+          name = "xwayland-satellite-0.8.3-vendor";
+          src = finalAttrs.src;
+          hash = "sha256-gMGFvnbxM3hD5fmkSimaFd87GEf6BXFe/MGjoS6VNVU=";
+        };
       })
     else
       pkgs.xwayland-satellite;
