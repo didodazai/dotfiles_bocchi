@@ -5,7 +5,8 @@ let
   validatedConfig = pkgs.runCommand "${hostname}-niri-config.kdl" {
     nativeBuildInputs = [ pkgs.niri ];
   } ''
-    cp ${./niri.kdl} config.kdl
+    # Arquivo do Nix store vem read-only; redirecionar cria um arquivo gravavel.
+    cat ${./niri.kdl} > config.kdl
     ${if hostname == "frieren" then "cat ${./frieren-outputs.kdl} >> config.kdl" else ""}
     ${pkgs.niri}/bin/niri validate -c config.kdl
     cp config.kdl $out
