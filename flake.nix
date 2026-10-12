@@ -15,7 +15,7 @@
     };
 
     # Mantidos sem follows para preservar os caches binários dos projetos.
-    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    noctalia.url = "github:noctalia-dev/noctalia/v5.2.1";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     # Agentes de IA e aplicativo Codex, isolados da base NixOS 26.05.
