@@ -1,23 +1,31 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
+let
+  # Atualizacoes pontuais de aplicativos. O sistema usa nixos-26.05 fixado.
+  # Evitar importar o canal novo para servicos, drivers ou Niri.
+  appsPkgs = import inputs.nixpkgs-apps {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in
 {
   home.packages = with pkgs; [
     # Ferramentas de desenvolvimento.
     code-cursor
-    zed-editor
+    appsPkgs.zed-editor
 
-    # Comunicação.
+    # Comunicacao.
     discord
     telegram-desktop
 
     # Aplicativos do dia a dia.
     spotify
     todoist-electron
-    bitwarden-desktop
-    brave
-    proton-vpn
+    appsPkgs.bitwarden-desktop
+    appsPkgs.brave
+    appsPkgs.proton-vpn
 
-    # Utilitários.
+    # Utilitarios.
     btop
     fd
     gh
