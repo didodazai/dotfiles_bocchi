@@ -42,6 +42,8 @@ home/terminal/            # Ghostty
 
 O Niri tem um arquivo KDL comum; os outputs do `frieren` sao anexados e validados durante o build. No `bocchi`, preservar a deteccao dinamica e o hotplug HDMI.
 
+O Fastfetch usa o mesmo layout em ambos os hosts: `bocchi` preserva a imagem original com Chafa, enquanto `frieren` usa temporariamente o logo nativo do NixOS. A escolha do logo fica em `home/programs/fastfetch.nix` e os modulos em `home/programs/fastfetch/config.jsonc`. Uma imagem da Frieren pode ser adicionada mais tarde, quando a arte for escolhida.
+
 ## Rebuild normal (Fish)
 
 Em **cada host**, no clone em `~/nixos-config`:
