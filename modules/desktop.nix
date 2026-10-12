@@ -1,11 +1,15 @@
-{ pkgs, ... }:
+{ pkgs, hostname, ... }:
 
 let
+  # Bocchi preserva o papel de parede atual; Frieren usa a propria arte.
+  backgroundName = if hostname == "frieren" then "frieren-login.jpg" else "bocchi-login.jpg";
+  backgroundSource = if hostname == "frieren" then ../assets/wallpapers/sddm-frieren.jpg else ../assets/wallpapers/sddm-login.jpg;
+
   sddmAstronaut = (pkgs.sddm-astronaut.override {
     embeddedTheme = "japanese_aesthetic";
 
     themeConfig = {
-      Background = "Backgrounds/bocchi-login.jpg";
+      Background = "Backgrounds/${backgroundName}";
 
       Font = "Geist";
       FontSize = "12";
@@ -65,8 +69,8 @@ let
   }).overrideAttrs (oldAttrs: {
     installPhase = oldAttrs.installPhase + ''
       chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
-      cp ${../assets/wallpapers/sddm-login.jpg} \
-        $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/bocchi-login.jpg
+      cp ${backgroundSource} \
+        $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/${backgroundName}
     '';
   });
 in
