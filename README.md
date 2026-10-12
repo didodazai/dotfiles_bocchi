@@ -81,4 +81,4 @@ Nao interpretar a ausencia de erros no build como confirmacao de que aplicativos
 - Fazer alteracoes pequenas, especificas por host quando necessario, e validar com `osaragi-test` antes de `osaragi`.
 - O estado real de cada host e validado com testes locais; commits no GitHub, por si so, nao confirmam funcionamento.
 
-Veja tambem `AGENTS.md`, `INSTALAR.md` e `INSTALAR-FRIEREN.md`.
+Veja tambem `AGENTS.md`, `ATALHOS.md`, `INSTALAR.md` e `INSTALAR-FRIEREN.md`.

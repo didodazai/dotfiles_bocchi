@@ -1,5 +1,6 @@
-// ===== Niri — bocchi =====
-// O Niri gerencia os outputs dinamicamente para preservar hotplug seguro.
+// ===== Niri — configuracao compartilhada (bocchi + frieren) =====
+// bocchi: outputs dinamicos para preservar hotplug HDMI seguro.
+// frieren: outputs especificos adicionados em niri.nix e validados no build.
 
 input {
     keyboard {
