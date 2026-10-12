@@ -29,8 +29,8 @@ in
     };
   };
 
-  # Mantido em ambos os hosts para preservar a disponibilidade do utilitario.
-  home.packages = [ pkgs.chafa ];
+  # Apenas a imagem do bocchi usa Chafa; o logo do frieren e builtin.
+  home.packages = lib.optionals isBocchi [ pkgs.chafa ];
 
   # A imagem Bocchi continua no laptop; nao precisa ser copiada para Frieren.
   xdg.configFile = lib.optionalAttrs isBocchi {
