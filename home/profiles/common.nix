@@ -8,6 +8,8 @@
     ../desktop/niri.nix
     ../desktop/noctalia.nix
     ../programs/packages.nix
+    ../programs/fastfetch.nix
+    ../programs/supernotes.nix
     ../programs/helium.nix
     ../programs/grok-bot.nix
     ../programs/zen.nix
