@@ -11,6 +11,7 @@
     ../../modules/dev.nix
     ../../modules/mysql.nix
     ../../modules/gaming.nix
+    ../../modules/discord-relay.nix
   ];
 
   # Mantém no boot as mesmas opções usadas na montagem inicial.
