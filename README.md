@@ -42,7 +42,11 @@ home/terminal/            # Ghostty
 
 O Niri tem um arquivo KDL comum; os outputs do `frieren` sao anexados e validados durante o build. No `bocchi`, preservar a deteccao dinamica e o hotplug HDMI.
 
-O Fastfetch usa o mesmo layout em ambos os hosts: `bocchi` preserva a imagem original com Chafa, enquanto `frieren` usa temporariamente o logo nativo do NixOS. A escolha do logo fica em `home/programs/fastfetch.nix` e os modulos em `home/programs/fastfetch/config.jsonc`. Uma imagem da Frieren pode ser adicionada mais tarde, quando a arte for escolhida.
+O Fastfetch usa o mesmo layout em ambos os hosts, com imagens diferentes renderizadas pelo Chafa: `bocchi` preserva a arte original (`home/programs/fastfetch/bocchi.png`) com 10 linhas; `frieren` usa a arte transparente (`home/programs/fastfetch/frieren.png`) com 13 linhas. A selecao por host fica em `home/programs/fastfetch.nix`, e os modulos compartilhados em `home/programs/fastfetch/config.jsonc`.
+
+A identidade visual continua compartilhando a paleta One Dark. O Ghostty usa o tema `OsaragiOneDark` nos dois hosts. O SDDM Astronaut (`japanese_aesthetic`) conserva as configuracoes de login e seleciona wallpapers separados por host em `modules/desktop.nix`: `assets/wallpapers/sddm-login.jpg` para `bocchi`, `assets/wallpapers/sddm-frieren.jpg` para `frieren`.
+
+O bloqueio de tela com `swaylock-effects` continua no atalho `Super+L` (comando historico `bocchi-lock`). Ambos usam uma captura desfocada da tela: desfoque `7x5` no `bocchi` e `12x8` no `frieren`. A configuracao declarativa fica em `home/lockscreen.nix`.
 
 ## Rebuild normal (Fish)
 
