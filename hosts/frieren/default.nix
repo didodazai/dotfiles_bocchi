@@ -34,6 +34,18 @@
   # Usar o LTS 6.18 para a instalação inicial; reavaliar kernels mais novos depois.
   boot.kernelPackages = pkgs.linuxPackages_6_18;
 
+  # WebHID do Pulsar X2 CrazyLight Mini: dongle 8K e USB-C.
+  services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "pulsar-webhid-rules";
+      destination = "/lib/udev/rules.d/70-pulsar-webhid.rules";
+      text = ''
+        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3710", ATTRS{idProduct}=="5406", TAG+="uaccess"
+        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3710", ATTRS{idProduct}=="3414", TAG+="uaccess"
+      '';
+    })
+  ];
+
   # Versão inicial deste host. Não alterar em upgrades futuros.
   system.stateVersion = "26.05";
 }
