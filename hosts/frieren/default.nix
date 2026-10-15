@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, username, ... }:
 
 {
   imports = [
@@ -45,6 +45,12 @@
       '';
     })
   ];
+
+  # Desktop e integracao com navegadores; a CLI e opcional.
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ username ];
+  };
 
   # Versão inicial deste host. Não alterar em upgrades futuros.
   system.stateVersion = "26.05";

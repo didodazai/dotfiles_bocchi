@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, lib, hostname, ... }:
 
 let
   # Atualizacoes pontuais de aplicativos. O sistema usa nixos-26.05 fixado.
@@ -22,7 +22,6 @@ in
     # Aplicativos do dia a dia.
     spotify
     todoist-electron
-    appsPkgs.bitwarden-desktop
     appsPkgs.brave
     appsPkgs.proton-vpn
 
@@ -34,5 +33,7 @@ in
     libnotify
     playerctl
     ripgrep
+  ] ++ lib.optionals (hostname != "frieren") [
+    appsPkgs.bitwarden-desktop
   ];
 }
