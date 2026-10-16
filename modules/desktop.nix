@@ -102,9 +102,36 @@ in
     useNautilus = false;
   };
 
+  # Japones nos dois hosts; portugues continua sendo o teclado padrao.
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5 = {
+      addons = with pkgs; [ fcitx5-mozc fcitx5-gtk ];
+      waylandFrontend = true;
+      settings = {
+        globalOptions = {
+          "Hotkey/TriggerKeys"."0" = "Control+space";
+          Behavior.ActiveByDefault = false;
+        };
+        inputMethod = {
+          "Groups/0" = {
+            Name = "Default";
+            "Default Layout" = "br";
+            DefaultIM = "mozc";
+          };
+          "Groups/0/Items/0" = { Name = "keyboard-br"; Layout = ""; };
+          "Groups/0/Items/1" = { Name = "mozc"; Layout = ""; };
+          GroupOrder."0" = "Default";
+        };
+      };
+    };
+  };
+
   fonts = {
     packages = with pkgs; [
       noto-fonts
+      noto-fonts-cjk-sans
       noto-fonts-color-emoji
       nerd-fonts.jetbrains-mono
       geist-font
@@ -118,5 +145,7 @@ in
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
+    # Qt usa o modulo Fcitx; GTK Wayland usa o protocolo nativo.
+    QT_IM_MODULE = "fcitx";
   };
 }

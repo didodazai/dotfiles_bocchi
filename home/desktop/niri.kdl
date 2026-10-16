@@ -23,6 +23,9 @@ cursor {
 // Noctalia inicia dentro da sessão do Niri e herda o ambiente correto.
 spawn-at-startup "noctalia"
 
+// Metodo de entrada japones; uma unica inicializacao por sessao.
+spawn-at-startup "fcitx5" "-d"
+
 hotkey-overlay {
     skip-at-startup
 }
