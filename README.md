@@ -19,8 +19,9 @@ O `flake.nix` declara `nixosConfigurations.bocchi` e `nixosConfigurations.friere
 - Desenvolvimento: Cursor, Zed, Claude Code, PHP 8.4, Composer e MySQL local em `127.0.0.1`.
 - IA no terminal: `codex`, `agent` (Cursor Agent), `agy` (Google Antigravity CLI).
 - Aplicativo grafico do Codex/ChatGPT: comando `chatgpt`. No `bocchi`, ele usa flags especificas de renderizacao por software para evitar problemas com Intel/i915.
-- Outros programas compartilhados: Discord, Telegram, Spotify, Todoist, Bitwarden, Proton VPN e Grok Bot.
+- Outros programas compartilhados: Discord, Telegram, Spotify, Todoist, 1Password, Proton VPN e Grok Bot.
 - Supernotes 3.2.4: incluido em ambos os perfis. Como o fornecedor bloqueia downloads automatizados, seu AppImage oficial deve estar disponivel no Nix store de cada maquina com o hash declarado em `home/programs/supernotes.nix`.
+- 1Password: configurado no modulo de desktop compartilhado para os dois hosts; Bitwarden nao faz parte dos perfis ativos.
 - Jogos: o modulo `gaming.nix` e importado somente no `frieren`.
 
 Versoes concretas e URLs de downloads ficam nos arquivos Nix e no `flake.lock`, nao neste README.

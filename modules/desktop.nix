@@ -1,4 +1,4 @@
-{ pkgs, hostname, ... }:
+{ pkgs, hostname, username, ... }:
 
 let
   # Bocchi preserva o papel de parede atual; Frieren usa a propria arte.
@@ -100,6 +100,12 @@ in
   programs.niri = {
     enable = true;
     useNautilus = false;
+  };
+
+  # Gerenciador de senhas unico em ambos os hosts, com integracao ao desktop.
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ username ];
   };
 
   # Japones nos dois hosts; portugues continua sendo o teclado padrao.

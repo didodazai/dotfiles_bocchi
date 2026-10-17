@@ -1,4 +1,4 @@
-{ pkgs, inputs, lib, hostname, ... }:
+{ pkgs, inputs, ... }:
 
 let
   # Atualizacoes pontuais de aplicativos. O sistema usa nixos-26.05 fixado.
@@ -33,7 +33,5 @@ in
     libnotify
     playerctl
     ripgrep
-  ] ++ lib.optionals (hostname != "frieren") [
-    appsPkgs.bitwarden-desktop
   ];
 }
