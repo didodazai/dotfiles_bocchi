@@ -54,6 +54,10 @@ in
       name = "minecraft-launcher";
       desktopName = "Minecraft Launcher";
       exec = "${minecraftLauncher}/bin/minecraft-launcher";
+      # Icone original extraido pelo proprio launcher da Mojang em ~/.minecraft.
+      # O caminho e especifico do usuario e deste host (modulo frieren).
+      icon = "/home/${username}/.minecraft/launcher/icons/minecraft256.png";
+      startupWMClass = "minecraft-launcher";
       categories = [ "Game" ];
     })
   ];
