@@ -15,10 +15,15 @@ let
   '';
 
   # O launcher e a JVM que ele baixa esperam uma distribuicao Linux FHS.
-  # Steam-run ja esta disponivel no nixpkgs e oferece esse ambiente sem Flatpak.
+  # A biblioteca baixada pelo launcher precisa de libnss3.so e libnspr4.so.
+  # Criar um steam-run isolado para o Minecraft, sem alterar a Steam do host.
+  minecraftFhs = (pkgs.steam.override {
+    extraLibraries = p: [ p.nss p.nspr ];
+  }).run-free;
+
   minecraftLauncher = pkgs.writeShellApplication {
     name = "minecraft-launcher";
-    runtimeInputs = [ pkgs.steam-run ];
+    runtimeInputs = [ minecraftFhs ];
     text = ''
       exec steam-run ${minecraftFiles}/minecraft-launcher/minecraft-launcher "$@"
     '';
