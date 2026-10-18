@@ -15,10 +15,10 @@ let
   '';
 
   # O launcher e a JVM que ele baixa esperam uma distribuicao Linux FHS.
-  # A biblioteca baixada pelo launcher precisa de libnss3.so e libnspr4.so.
+  # Libs do launcher e acesso ao Secret Service para salvar o login Microsoft.
   # Criar um steam-run isolado para o Minecraft, sem alterar a Steam do host.
   minecraftFhs = (pkgs.steam.override {
-    extraLibraries = p: [ p.nss p.nspr ];
+    extraLibraries = p: [ p.nss p.nspr p.libsecret ];
   }).run-free;
 
   minecraftLauncher = pkgs.writeShellApplication {
