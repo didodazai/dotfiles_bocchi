@@ -1,5 +1,29 @@
 { pkgs, username, ... }:
 
+let
+  # Arquivo oficial para "outras distribuicoes Linux".
+  # Hash fixo: se a Mojang substituir o tarball, revisar antes de atualizar.
+  minecraftTarball = pkgs.fetchurl {
+    url = "https://launcher.mojang.com/download/Minecraft.tar.gz";
+    hash = "sha256-aVJpKBVHu7z0f+dGMwJ6Dk3cE6YQYMaGpyF+hdMU5F4=";
+  };
+
+  minecraftFiles = pkgs.runCommand "minecraft-launcher-official-files" { } ''
+    mkdir -p "$out"
+    tar -xzf ${minecraftTarball} -C "$out"
+    test -x "$out/minecraft-launcher/minecraft-launcher"
+  '';
+
+  # O launcher e a JVM que ele baixa esperam uma distribuicao Linux FHS.
+  # Steam-run ja esta disponivel no nixpkgs e oferece esse ambiente sem Flatpak.
+  minecraftLauncher = pkgs.writeShellApplication {
+    name = "minecraft-launcher";
+    runtimeInputs = [ pkgs.steam-run ];
+    text = ''
+      exec steam-run ${minecraftFiles}/minecraft-launcher/minecraft-launcher "$@"
+    '';
+  };
+in
 {
   programs.steam = {
     enable = true;
@@ -12,13 +36,6 @@
     protontricks.enable = true;
   };
 
-  # O launcher oficial da Mojang nao existe mais no nixpkgs desde 25.11.
-  # Habilita apenas a infraestrutura Flatpak para testar o launcher da
-  # Mojang empacotado pela comunidade (com.mojang.Minecraft, Flathub).
-  # Instalar o aplicativo e verificar login/jogo antes de automatizar.
-  # Modulo importado apenas pelo frieren.
-  services.flatpak.enable = true;
-
   programs.gamemode.enable = true;
 
   # O grupo gamemode permite ao daemon solicitar mudancas no governor da CPU.
@@ -27,5 +44,12 @@
 
   environment.systemPackages = with pkgs; [
     heroic
+    minecraftLauncher
+    (makeDesktopItem {
+      name = "minecraft-launcher";
+      desktopName = "Minecraft Launcher";
+      exec = "${minecraftLauncher}/bin/minecraft-launcher";
+      categories = [ "Game" ];
+    })
   ];
 }
