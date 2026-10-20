@@ -1,0 +1,25 @@
+name: Temporary Grok Bot AppImage checksum
+
+on:
+  push:
+    branches: [osaragi]
+    paths:
+      - .github/workflows/grok-bot-checksum-temp.yml
+
+permissions: {}
+
+jobs:
+  checksum:
+    name: Verify download hash
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch official Grok Bot 0.72.0 AppImage
+        env:
+          URL: https://downloads.cursor.com/grokbot/stable/6a17bb448f856a2390dd63ba42bf6e80e63b08fd/linux/x64/Grok_Bot_0.72.0.AppImage
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 --max-time 300 "$URL" --output /tmp/Grok_Bot_0.72.0.AppImage
+          test -s /tmp/Grok_Bot_0.72.0.AppImage
+          printf 'GROK_BOT_0720_SHA256='
+          sha256sum /tmp/Grok_Bot_0.72.0.AppImage | cut -d' ' -f1
