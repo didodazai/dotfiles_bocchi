@@ -49,6 +49,8 @@ in
 
   environment.systemPackages = with pkgs; [
     heroic
+    # Binario oficial do osu!lazer: permite multiplayer e envio de pontuacoes.
+    osu-lazer-bin
     minecraftLauncher
     (makeDesktopItem {
       name = "minecraft-launcher";
