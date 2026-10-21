@@ -1,0 +1,33 @@
+name: Temporary Grok Bot stable release verification
+
+on:
+  push:
+    branches: [osaragi]
+    paths:
+      - .github/workflows/grok-bot-release-verify-temp.yml
+
+permissions: {}
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Fetch official linux-x64 feed, check version and download checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fLsS --retry 2 --max-time 40 'https://api2.cursor.sh/updates/api/download/stable/linux-x64/sand' -o /tmp/release.json
+          jq '{version, commitSha, downloadUrl}' /tmp/release.json
+          VERSION="$(jq -r '.version // empty' /tmp/release.json)"
+          URL="$(jq -r '.downloadUrl // empty' /tmp/release.json)"
+          test -n "$VERSION" && test -n "$URL"
+          case "$URL" in
+            https://downloads.cursor.com/grokbot/stable/*/linux/x64/*.AppImage) ;;
+            *) echo "Unexpected official download URL: $URL"; exit 1 ;;
+          esac
+          echo "OFFICIAL_GROK_VERSION=$VERSION"
+          echo "OFFICIAL_GROK_DOWNLOAD=$URL"
+          curl -fLsS --retry 2 --max-time 500 "$URL" -o /tmp/grokbot.AppImage
+          test -s /tmp/grokbot.AppImage
+          echo "OFFICIAL_GROK_SHA256=$(sha256sum /tmp/grokbot.AppImage | cut -d' ' -f1)"
