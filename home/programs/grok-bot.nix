@@ -1,11 +1,11 @@
 { pkgs, ... }:
 
 let
-  version = "0.72.0";
+  version = "0.75.0";
 
   src = pkgs.fetchurl {
-    url = "https://downloads.cursor.com/grokbot/stable/6a17bb448f856a2390dd63ba42bf6e80e63b08fd/linux/x64/Grok_Bot_${version}.AppImage";
-    hash = "sha256-pbNLtG+fBnLmSRYKtrdAtXOiUYk1ELvxVUk38Wgtr94=";
+    url = "https://downloads.cursor.com/grokbot/stable/0754837254309a566ace488b3a8de245c7a82ea5/linux/x64/Grok_Bot_${version}.AppImage";
+    hash = "sha256-5Jd/G6x1kBa4Q0tWQoPbdXdDRgK0/azWUuJpn6WfTw8=";
   };
 
   appimageContents = pkgs.appimageTools.extractType2 {
