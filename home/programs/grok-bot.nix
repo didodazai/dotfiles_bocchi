@@ -1,11 +1,21 @@
-{ pkgs, ... }:
+{ pkgs, hostname, ... }:
 
 let
-  version = "0.75.0";
+  # Bocchi testa a versão nova primeiro; Frieren mantém a versão anterior.
+  isBocchi = hostname == "bocchi";
+  version = if isBocchi then "0.75.5" else "0.75.0";
+  releaseCommit = if isBocchi then
+    "e4789bbe423912faa668dc29e013436280428fe6"
+  else
+    "0754837254309a566ace488b3a8de245c7a82ea5";
+  sourceHash = if isBocchi then
+    "sha256-XF72qTA2xn/ualMMSjIl0eCvoWmV2CmXHq8K/sUJaaA="
+  else
+    "sha256-5Jd/G6x1kBa4Q0tWQoPbdXdDRgK0/azWUuJpn6WfTw8=";
 
   src = pkgs.fetchurl {
-    url = "https://downloads.cursor.com/grokbot/stable/0754837254309a566ace488b3a8de245c7a82ea5/linux/x64/Grok_Bot_${version}.AppImage";
-    hash = "sha256-5Jd/G6x1kBa4Q0tWQoPbdXdDRgK0/azWUuJpn6WfTw8=";
+    url = "https://downloads.cursor.com/grokbot/stable/${releaseCommit}/linux/x64/Grok_Bot_${version}.AppImage";
+    hash = sourceHash;
   };
 
   appimageContents = pkgs.appimageTools.extractType2 {
