@@ -2,12 +2,12 @@
 
 let
   pname = "helium";
-  # Atualizacao isolada para o bocchi; frieren permanece na versao validada.
-  version = if hostname == "bocchi" then "0.20.1.1" else "0.19.4.1";
+  # Helium 0.20.1.1 liberado em ambos; validar primeiro no frieren.
+  version = if hostname == "bocchi" then "0.20.1.1" else "0.20.1.1";
   sourceHash = if hostname == "bocchi" then
     "sha256-1LeJsl0KmuEsdmceRE6Khe3Pgo4EGcZ40YxB+xrDAw4="
   else
-    "sha256-Wy2zkrPth/JKqESTYFnWisqYvCBUjqqg3s+jwoCioKc=";
+    "sha256-1LeJsl0KmuEsdmceRE6Khe3Pgo4EGcZ40YxB+xrDAw4=";
 
   src = pkgs.fetchurl {
     url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";

@@ -1,4 +1,4 @@
-{ pkgs, hostname, username, ... }:
+{ pkgs, inputs, hostname, username, ... }:
 
 let
   # Bocchi preserva o papel de parede atual; Frieren usa a propria arte.
@@ -106,6 +106,15 @@ in
   programs._1password-gui = {
     enable = true;
     polkitPolicyOwners = [ username ];
+    # Frieren recebe 1Password 8.12.38 do nixpkgs-apps fixado.
+    # Bocchi continua na revisao base, sem alteracao da integracao polkit.
+    package = if hostname == "frieren" then
+      (import inputs.nixpkgs-apps {
+        system = pkgs.stdenv.hostPlatform.system;
+        config.allowUnfree = true;
+      })._1password-gui
+    else
+      pkgs._1password-gui;
   };
 
   # Japones nos dois hosts; portugues continua sendo o teclado padrao.
