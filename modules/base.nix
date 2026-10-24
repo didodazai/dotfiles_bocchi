@@ -1,4 +1,4 @@
-{ pkgs, hostname, username, ... }:
+{ pkgs, inputs, hostname, username, ... }:
 
 {
   boot.loader.systemd-boot = {
@@ -45,7 +45,11 @@
 
   environment.systemPackages = with pkgs; [
     git
-    claude-code
+    # Claude Code 2.1.295 via nixpkgs-apps; preservar NixOS base.
+    ((import inputs.nixpkgs-apps {
+      system = pkgs.stdenv.hostPlatform.system;
+      config.allowUnfree = true;
+    }).claude-code)
     curl
 
     # Usados pelo desktop.

@@ -106,15 +106,21 @@ in
   programs._1password-gui = {
     enable = true;
     polkitPolicyOwners = [ username ];
-    # Frieren recebe 1Password 8.12.38 do nixpkgs-apps fixado.
-    # Bocchi continua na revisao base, sem alteracao da integracao polkit.
-    package = if hostname == "frieren" then
+    # Atualizacao pontual 8.12.42, mantendo o pacote-base especifico
+    # de cada host e a integracao Polkit do modulo NixOS.
+    package = (if hostname == "frieren" then
       (import inputs.nixpkgs-apps {
         system = pkgs.stdenv.hostPlatform.system;
         config.allowUnfree = true;
       })._1password-gui
     else
-      pkgs._1password-gui;
+      pkgs._1password-gui).overrideAttrs (_: {
+        version = "8.12.42";
+        src = pkgs.fetchurl {
+          url = "https://downloads.1password.com/linux/tar/stable/x86_64/1password-8.12.42.x64.tar.gz";
+          hash = "sha256-LOZNG9U91v1ECHOaB50QvgGv81y06Orso9ybfGqEGN4=";
+        };
+      });
   };
 
   # Japones nos dois hosts; portugues continua sendo o teclado padrao.
