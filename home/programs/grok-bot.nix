@@ -3,15 +3,15 @@
 let
   # Frieren adota a versão oficial já declarada para o bocchi; validar em cada host.
   isBocchi = hostname == "bocchi";
-  version = if isBocchi then "0.75.5" else "0.75.5";
+  version = if isBocchi then "0.75.8" else "0.75.8";
   releaseCommit = if isBocchi then
-    "e4789bbe423912faa668dc29e013436280428fe6"
+    "039d88c52f45f8af72fbe7379bc426c171edf62b"
   else
-    "e4789bbe423912faa668dc29e013436280428fe6";
+    "039d88c52f45f8af72fbe7379bc426c171edf62b";
   sourceHash = if isBocchi then
-    "sha256-XF72qTA2xn/ualMMSjIl0eCvoWmV2CmXHq8K/sUJaaA="
+    "sha256-OM1gaqpIUIyZazUGjKNMfllvXBGuN3Zg2vokoa3hGGM="
   else
-    "sha256-XF72qTA2xn/ualMMSjIl0eCvoWmV2CmXHq8K/sUJaaA=";
+    "sha256-OM1gaqpIUIyZazUGjKNMfllvXBGuN3Zg2vokoa3hGGM=";
 
   src = pkgs.fetchurl {
     url = "https://downloads.cursor.com/grokbot/stable/${releaseCommit}/linux/x64/Grok_Bot_${version}.AppImage";
