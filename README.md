@@ -49,17 +49,28 @@ A identidade visual continua compartilhando a paleta One Dark. O Ghostty usa o t
 
 O bloqueio de tela com `swaylock-effects` continua no atalho `Super+L` (comando historico `bocchi-lock`). Ambos usam uma captura desfocada da tela: desfoque `7x5` no `bocchi` e `12x8` no `frieren`. A configuracao declarativa fica em `home/lockscreen.nix`.
 
+## Alteracoes seguras entre hosts
+
+Manter **um unico repositorio** com base compartilhada, mas classificar cada mudanca como `bocchi`, `frieren` ou `ambos` antes de editar. Arquivos especificos do host afetam seu proprio perfil; `flake.lock`, `modules/base.nix`, `modules/desktop.nix`, `home/profiles/common.nix` e os modulos compartilhados podem afetar os dois computadores.
+
+O fluxo detalhado e os limites de seguranca estao em [AGENTS.md](AGENTS.md): inspecionar Git e imports, preparar commits pequenos, avaliar ambas as configuracoes quando a mudanca for compartilhada e testar cada host com `osaragi-test` antes de `osaragi`. Um host indisponivel fica **pendente de validacao**, mesmo que o outro tenha funcionado.
+
+O nome planejado para o repositorio e `dotfiles_dddz`; ate a renomeacao formal, o remoto continua `didodazai/dotfiles_bocchi`. As pendencias de NixOS sao acompanhadas nas conversas do projeto, nao no Todoist.
+
 ## Rebuild normal (Fish)
 
 Em **cada host**, no clone em `~/nixos-config`:
 
 ```fish
 cd ~/nixos-config
-git status --short
+hostname
+git status --short --branch
 git branch --show-current
-git pull --ff-only
-osaragi-test
+git fetch origin osaragi
+git rev-list --left-right --count HEAD...origin/osaragi
 ```
+
+Se nao houver alteracoes locais conflitantes nem divergencia, fazer `git pull --ff-only` e testar com `osaragi-test`.
 
 Se o teste passou e os aplicativos/monitores esperados estao funcionando:
 
