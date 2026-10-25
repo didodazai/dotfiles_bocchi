@@ -1,0 +1,50 @@
+# Avalia as configuracoes dos dois hosts; nao constroi nem aplica NixOS.
+name: NixOS - avaliar hosts
+
+on:
+  push:
+    branches: [osaragi]
+  pull_request:
+    branches: [osaragi]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nixos-eval-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  evaluate:
+    name: Avaliar ${{ matrix.host }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        host: [bocchi, frieren]
+
+    steps:
+      - name: Checkout (flake.lock versionado)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Instalar Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ github.token }}
+          enable_kvm: false
+
+      - name: Avaliar derivacao NixOS sem fazer build
+        env:
+          HOST: ${{ matrix.host }}
+        run: |
+          set -euo pipefail
+          drv="$(nix eval --raw --no-write-lock-file ".#nixosConfigurations.${HOST}.config.system.build.toplevel.drvPath")"
+          test -n "$drv"
+          printf 'Host %s: avaliacao concluida (%s)\n' "$HOST" "$drv"
+
+      - name: Conferir que o lockfile nao mudou
+        run: git diff --exit-code -- flake.lock
