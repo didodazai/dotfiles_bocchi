@@ -12,8 +12,8 @@ let
   qtFont = ''"${config.gtk.font.name},${builtins.toString config.gtk.font.size},-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular"'';
 in
 {
-  # O Home Manager usa qt5ct por padrão para "qtct"; no setup do fufexan
-  # isso é forçado para qt6ct para evitar inconsistências em apps Qt 6.
+  # O Home Manager usa qt5ct por padrão para "qtct"; usamos qt6ct
+  # para evitar inconsistências em aplicativos Qt 6.
   home.sessionVariables = {
     QT_QPA_PLATFORMTHEME = lib.mkForce "qt6ct";
     QT_STYLE_OVERRIDE = lib.mkForce null;

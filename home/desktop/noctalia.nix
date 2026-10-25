@@ -128,7 +128,7 @@
       theme = {
         mode = "dark";
         source = "custom";
-        custom_palette = "FufexanOneDark";
+        custom_palette = "OsaragiOneDark";
       };
 
       wallpaper = {
@@ -136,7 +136,7 @@
         fill_mode = "crop";
         transition = [ "fade" "zoom" ];
         transition_duration = 900;
-        default.path = "${config.home.homeDirectory}/Pictures/Wallpapers/fufexan.jpg";
+        default.path = "${config.home.homeDirectory}/Pictures/Wallpapers/osaragi.jpg";
       };
 
       # Backdrop usado pelo Overview do Niri, inspirado no desktop Bluefin.
@@ -161,7 +161,7 @@
       };
     };
 
-    customPalettes.FufexanOneDark = {
+    customPalettes.OsaragiOneDark = {
       dark = {
         mPrimary = "#e06c75";
         mOnPrimary = "#1e2127";
