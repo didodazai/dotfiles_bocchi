@@ -106,15 +106,14 @@ in
   programs._1password-gui = {
     enable = true;
     polkitPolicyOwners = [ username ];
-    # Atualizacao pontual 8.12.42, mantendo o pacote-base especifico
-    # de cada host e a integracao Polkit do modulo NixOS.
-    package = (if hostname == "frieren" then
-      (import inputs.nixpkgs-apps {
-        system = pkgs.stdenv.hostPlatform.system;
-        config.allowUnfree = true;
-      })._1password-gui
-    else
-      pkgs._1password-gui).overrideAttrs (_: {
+    # 8.12.42 mudou os arquivos .desktop do tarball.
+    # O pacote do nixpkgs base ainda procura resources/1password.desktop,
+    # enquanto a receita do nixpkgs-apps usa resources/*.desktop.
+    # Usar a receita mais nova nos dois hosts; nao altera o sistema base.
+    package = ((import inputs.nixpkgs-apps {
+      system = pkgs.stdenv.hostPlatform.system;
+      config.allowUnfree = true;
+    })._1password-gui).overrideAttrs (_: {
         version = "8.12.42";
         src = pkgs.fetchurl {
           url = "https://downloads.1password.com/linux/tar/stable/x86_64/1password-8.12.42.x64.tar.gz";
