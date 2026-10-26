@@ -7,6 +7,15 @@ let
   } ''
     # Arquivo do Nix store vem read-only; redirecionar cria um arquivo gravavel.
     cat ${./niri.kdl} > config.kdl
+    ${if hostname == "frieren" then ''
+      # Frieren: evita scanout direto enquanto investigamos halos verdes
+      # exclusivos do Odyssey G5. Bocchi permanece sem alteracoes.
+      substituteInPlace config.kdl \
+        --replace-fail \
+        "    honor-xdg-activation-with-invalid-serial" \
+        "    honor-xdg-activation-with-invalid-serial
+    disable-direct-scanout"
+    '' else ""}
     ${if hostname == "frieren" then "cat ${./frieren-outputs.kdl} >> config.kdl" else ""}
     ${pkgs.niri}/bin/niri validate -c config.kdl
     cp config.kdl $out
