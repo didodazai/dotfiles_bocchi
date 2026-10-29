@@ -2,10 +2,10 @@
 
 let
   pname = "helium";
-  # Helium 0.20.1.1 liberado em ambos; validar primeiro no frieren.
-  version = if hostname == "bocchi" then "0.20.1.1" else "0.20.1.1";
-  sourceHash = if hostname == "bocchi" then
-    "sha256-1LeJsl0KmuEsdmceRE6Khe3Pgo4EGcZ40YxB+xrDAw4="
+  # Apenas frieren recebe o release mais novo; bocchi continua em 0.20.1.1.
+  version = if hostname == "frieren" then "0.20.2.1" else "0.20.1.1";
+  sourceHash = if hostname == "frieren" then
+    "sha256-rEkoQk0xyGP/86t1076HPfyS7eAOaIljTcvFiBoSA5c="
   else
     "sha256-1LeJsl0KmuEsdmceRE6Khe3Pgo4EGcZ40YxB+xrDAw4=";
 
