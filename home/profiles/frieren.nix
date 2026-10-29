@@ -1,9 +1,18 @@
-{ ... }:
+{ pkgs, inputs, ... }:
 
+let
+  appsPkgs = import inputs.nixpkgs-apps {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in
 {
   imports = [
     ./common.nix
   ];
+
+  # Sunsama somente no frieren, aproveitando o nixpkgs-apps ja fixado.
+  home.packages = [ appsPkgs.sunsama ];
 
   # Recuperado do backup do Bluefin (EasyEffects 8.3.0) em 2026-10-12.
   # Aplicado apenas no frieren; nao altera o pipeline do bocchi.
