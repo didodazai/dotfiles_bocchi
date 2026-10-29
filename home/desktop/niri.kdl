@@ -26,8 +26,7 @@ spawn-at-startup "noctalia"
 // Metodo de entrada japones; uma unica inicializacao por sessao.
 spawn-at-startup "fcitx5" "-d"
 
-// Todoist inicia com a sessao do Niri em ambos os hosts.
-spawn-at-startup "todoist-electron"
+// O autostart de produtividade depende do host e e definido em niri.nix.
 
 hotkey-overlay {
     skip-at-startup

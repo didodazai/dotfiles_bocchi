@@ -7,6 +7,8 @@ let
   } ''
     # Arquivo do Nix store vem read-only; redirecionar cria um arquivo gravavel.
     cat ${./niri.kdl} > config.kdl
+    # Autostart por host: Sunsama no frieren, Todoist permanece no bocchi.
+    printf '%s\n' 'spawn-at-startup "${if hostname == "frieren" then "sunsama" else "todoist-electron"}"' >> config.kdl
     ${if hostname == "frieren" then "cat ${./frieren-outputs.kdl} >> config.kdl" else ""}
     ${pkgs.niri}/bin/niri validate -c config.kdl
     cp config.kdl $out
