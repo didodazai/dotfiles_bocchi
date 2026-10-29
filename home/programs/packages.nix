@@ -8,12 +8,9 @@ let
     config.allowUnfree = true;
   };
 
-  # Atualizacao restrita ao frieren; bocchi preserva a versao validada.
-  braveVersion = if hostname == "frieren" then "1.98.62" else "1.98.60";
-  braveHash = if hostname == "frieren" then
-    "sha256-+ytsdncm2ytWLXZhmGGLwppZDpj4KZat4qOikVO1VcE="
-  else
-    "sha256-gSoAHXYxtatJ5V3sYUigvC1Fnp/AMQbChile4D/QYvw=";
+  # Brave 1.98.62: pacote oficial fixado com hash, agora nos dois hosts.
+  braveVersion = "1.98.62";
+  braveHash = "sha256-+ytsdncm2ytWLXZhmGGLwppZDpj4KZat4qOikVO1VcE=";
 
 in
 {
@@ -34,7 +31,7 @@ in
     # Todoist 9.20.0 aguarda hash verificado da AppImage oficial mais recente.
     # Nao substituir sem teste de abertura, fuso e sincronizacao no frieren.
     todoist-electron
-    # Brave estavel com hash oficial; nova versao apenas no frieren.
+    # Brave estavel com hash fixado para ambos os hosts.
     (appsPkgs.brave.overrideAttrs (_: {
       version = braveVersion;
       src = pkgs.fetchurl {
