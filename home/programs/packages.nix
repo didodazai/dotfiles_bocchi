@@ -8,6 +8,13 @@ let
     config.allowUnfree = true;
   };
 
+  # Atualizacao restrita ao frieren; bocchi preserva a versao validada.
+  braveVersion = if hostname == "frieren" then "1.98.62" else "1.98.60";
+  braveHash = if hostname == "frieren" then
+    "sha256-+ytsdncm2ytWLXZhmGGLwppZDpj4KZat4qOikVO1VcE="
+  else
+    "sha256-gSoAHXYxtatJ5V3sYUigvC1Fnp/AMQbChile4D/QYvw=";
+
 in
 {
   home.packages = with pkgs; [
@@ -27,12 +34,12 @@ in
     # Todoist 9.20.0 aguarda hash verificado da AppImage oficial mais recente.
     # Nao substituir sem teste de abertura, fuso e sincronizacao no frieren.
     todoist-electron
-    # Brave 1.98.60 oficial, hash publicado no release; ambos os hosts.
+    # Brave estavel com hash oficial; nova versao apenas no frieren.
     (appsPkgs.brave.overrideAttrs (_: {
-      version = "1.98.60";
+      version = braveVersion;
       src = pkgs.fetchurl {
-        url = "https://github.com/brave/brave-browser/releases/download/v1.98.60/brave-browser_1.98.60_amd64.deb";
-        hash = "sha256-gSoAHXYxtatJ5V3sYUigvC1Fnp/AMQbChile4D/QYvw=";
+        url = "https://github.com/brave/brave-browser/releases/download/v${braveVersion}/brave-browser_${braveVersion}_amd64.deb";
+        hash = braveHash;
       };
     }))
     appsPkgs.proton-vpn
