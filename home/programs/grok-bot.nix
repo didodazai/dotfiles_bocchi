@@ -1,15 +1,15 @@
 { pkgs, hostname, ... }:
 
 let
-  # Frieren adota a versão oficial já declarada para o bocchi; validar em cada host.
+  # Atualização pontual no bocchi; frieren mantém a versão validada.
   isBocchi = hostname == "bocchi";
-  version = if isBocchi then "0.75.8" else "0.75.8";
+  version = if isBocchi then "0.78.1" else "0.75.8";
   releaseCommit = if isBocchi then
-    "039d88c52f45f8af72fbe7379bc426c171edf62b"
+    "72e130b4e6be3fdc47b97e809b6b420908ce2dd8"
   else
     "039d88c52f45f8af72fbe7379bc426c171edf62b";
   sourceHash = if isBocchi then
-    "sha256-OM1gaqpIUIyZazUGjKNMfllvXBGuN3Zg2vokoa3hGGM="
+    "sha256-BQ11I8bvoEYmYROuLjsfPOlAlVSSwrlS/T5pi2DXP7g="
   else
     "sha256-OM1gaqpIUIyZazUGjKNMfllvXBGuN3Zg2vokoa3hGGM=";
 
