@@ -1,17 +1,17 @@
 { pkgs, hostname, ... }:
 
 let
-  # Atualização pontual no bocchi; frieren mantém a versão validada.
+  # Versão oficial Linux x64 e hash verificado, validada primeiro no bocchi.
   isBocchi = hostname == "bocchi";
-  version = if isBocchi then "0.78.1" else "0.75.8";
+  version = if isBocchi then "0.78.1" else "0.78.1";
   releaseCommit = if isBocchi then
     "72e130b4e6be3fdc47b97e809b6b420908ce2dd8"
   else
-    "039d88c52f45f8af72fbe7379bc426c171edf62b";
+    "72e130b4e6be3fdc47b97e809b6b420908ce2dd8";
   sourceHash = if isBocchi then
     "sha256-BQ11I8bvoEYmYROuLjsfPOlAlVSSwrlS/T5pi2DXP7g="
   else
-    "sha256-OM1gaqpIUIyZazUGjKNMfllvXBGuN3Zg2vokoa3hGGM=";
+    "sha256-BQ11I8bvoEYmYROuLjsfPOlAlVSSwrlS/T5pi2DXP7g=";
 
   src = pkgs.fetchurl {
     url = "https://downloads.cursor.com/grokbot/stable/${releaseCommit}/linux/x64/Grok_Bot_${version}.AppImage";
