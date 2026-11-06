@@ -2,9 +2,9 @@
 
 let
   pname = "helium";
-  # Release oficial 0.20.2.1 com hash fixado para ambos os hosts.
-  version = "0.20.2.1";
-  sourceHash = "sha256-rEkoQk0xyGP/86t1076HPfyS7eAOaIljTcvFiBoSA5c=";
+  # Release oficial 0.21.1.1 com hash fixado para ambos os hosts.
+  version = "0.21.1.1";
+  sourceHash = "sha256-pivECBuZcJsxFxZc96vnER07VEZxqxcjL0KbmwVEs/o=";
 
   src = pkgs.fetchurl {
     url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
