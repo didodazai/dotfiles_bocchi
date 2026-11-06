@@ -8,9 +8,9 @@ let
     config.allowUnfree = true;
   };
 
-  # Brave 1.98.62: pacote oficial fixado com hash, agora nos dois hosts.
-  braveVersion = "1.98.62";
-  braveHash = "sha256-+ytsdncm2ytWLXZhmGGLwppZDpj4KZat4qOikVO1VcE=";
+  # Brave 1.99.55: pacote oficial estavel com SHA-256 confirmado no release.
+  braveVersion = "1.99.55";
+  braveHash = "sha256-Nk6VSirYTVuj4OIXoinVhzxK5xB9FeYSDkIHUpU5yI0=";
 
 in
 {
