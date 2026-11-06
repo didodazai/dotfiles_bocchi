@@ -12,7 +12,17 @@ in
   ];
 
   # Sunsama somente no frieren, aproveitando o nixpkgs-apps ja fixado.
-  home.packages = [ appsPkgs.sunsama ];
+  # Celluloid usa o nixpkgs base para reproduzir videos locais.
+  home.packages = [
+    appsPkgs.sunsama
+    pkgs.celluloid
+  ];
+
+  # Abrir episodios .mkv pelo Celluloid no Waydir e em outros gerenciadores.
+  # A associacao de pastas continua definida pelo modulo compartilhado Waydir.
+  xdg.mimeApps.defaultApplications."video/x-matroska" = [
+    "io.github.celluloid_player.Celluloid.desktop"
+  ];
 
   # Recuperado do backup do Bluefin (EasyEffects 8.3.0) em 2026-10-12.
   # Aplicado apenas no frieren; nao altera o pipeline do bocchi.
