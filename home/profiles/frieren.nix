@@ -16,6 +16,10 @@ in
   home.packages = [
     appsPkgs.sunsama
     pkgs.celluloid
+
+    # Herdr Desktop e Core exclusivos do frieren, gerenciados pelo Nix.
+    appsPkgs.herdr-desktop
+    appsPkgs.herdr-core
   ];
 
   # Abrir episodios .mkv pelo Celluloid no Waydir e em outros gerenciadores.
