@@ -8,9 +8,14 @@ let
     config.allowUnfree = true;
   };
 
-  # Brave 1.99.55: pacote oficial estavel com SHA-256 confirmado no release.
-  braveVersion = "1.99.55";
-  braveHash = "sha256-Nk6VSirYTVuj4OIXoinVhzxK5xB9FeYSDkIHUpU5yI0=";
+  # Brave estavel, com fonte e SHA-256 oficiais por host.
+  # Bocchi recebe as atualizacoes primeiro; frieren fica na versao validada.
+  braveVersion = if hostname == "bocchi" then "1.99.56" else "1.99.55";
+  braveHash =
+    if hostname == "bocchi" then
+      "sha256-W1r00Qh1j+XoK3yxGa8gOXepD8s0ubBzGTF/hj84vHI="
+    else
+      "sha256-Nk6VSirYTVuj4OIXoinVhzxK5xB9FeYSDkIHUpU5yI0=";
 
 in
 {
