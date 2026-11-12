@@ -1,4 +1,4 @@
-{ pkgs, hostname, ... }:
+{ pkgs, inputs, hostname, ... }:
 
 let
   # Versão oficial Linux x64 e hash verificado, validada primeiro no bocchi.
@@ -58,8 +58,13 @@ let
   };
 in
 {
-  home.packages = [
-    grokBot
-    desktopItem
-  ];
+  # Bocchi usa o pacote mantido pela Numtide, ja presente no input
+  # llm-agents fixado. Ao atualizar somente esse input, o pacote
+  # acompanha o feed oficial sem reimplementar o empacotamento .deb.
+  # Frieren preserva a AppImage 0.78.1 previamente validada.
+  home.packages =
+    if hostname == "bocchi" then
+      [ inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.grok-bot ]
+    else
+      [ grokBot desktopItem ];
 }
