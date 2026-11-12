@@ -2,9 +2,14 @@
 
 let
   pname = "helium";
-  # Release oficial 0.21.1.1 com hash fixado para ambos os hosts.
-  version = "0.21.1.1";
-  sourceHash = "sha256-pivECBuZcJsxFxZc96vnER07VEZxqxcjL0KbmwVEs/o=";
+  # AppImage oficial com SHA-256 verificado no release.
+  # O frieren permanece na versao anterior ate a validacao local.
+  version = if hostname == "bocchi" then "0.21.2.1" else "0.21.1.1";
+  sourceHash =
+    if hostname == "bocchi" then
+      "sha256-IdP+SyvmN+uT/eogjWsG1/6feO6MF9gP/57SM3AsBmo="
+    else
+      "sha256-pivECBuZcJsxFxZc96vnER07VEZxqxcjL0KbmwVEs/o=";
 
   src = pkgs.fetchurl {
     url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
