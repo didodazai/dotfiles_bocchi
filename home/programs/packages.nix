@@ -10,12 +10,12 @@ let
 
   # Brave estavel, com fonte e SHA-256 oficiais por host.
   # Bocchi recebe as atualizacoes primeiro; frieren fica na versao validada.
-  braveVersion = if hostname == "bocchi" then "1.99.56" else "1.99.55";
+  braveVersion = if hostname == "bocchi" then "1.99.56" else "1.99.57";
   braveHash =
     if hostname == "bocchi" then
       "sha256-W1r00Qh1j+XoK3yxGa8gOXepD8s0ubBzGTF/hj84vHI="
     else
-      "sha256-Nk6VSirYTVuj4OIXoinVhzxK5xB9FeYSDkIHUpU5yI0=";
+      "sha256-jNFMV/f9bXnf2aJUUBdbVDihsRtWX/XQitmRtwLen9U=";
 
 in
 {
