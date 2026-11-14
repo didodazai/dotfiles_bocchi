@@ -6,12 +6,12 @@ let
   backgroundSource = if hostname == "frieren" then ../assets/wallpapers/sddm-frieren.jpg else ../assets/wallpapers/sddm-login.jpg;
 
   # 1Password: nova versao apenas no bocchi, com hash de fonte verificado.
-  onePasswordVersion = if hostname == "bocchi" then "8.12.44" else "8.12.42";
+  onePasswordVersion = if hostname == "bocchi" then "8.12.44" else "8.12.44";
   onePasswordHash =
     if hostname == "bocchi" then
       "sha256-3iPSYBlx6zvRJXh7ljzgDmfSiQfoJt3RL3fJh4UUB4U="
     else
-      "sha256-LOZNG9U91v1ECHOaB50QvgGv81y06Orso9ybfGqEGN4=";
+      "sha256-3iPSYBlx6zvRJXh7ljzgDmfSiQfoJt3RL3fJh4UUB4U=";
 
   sddmAstronaut = (pkgs.sddm-astronaut.override {
     embeddedTheme = "japanese_aesthetic";
